@@ -1,5 +1,5 @@
 {
-  "name": "gacti",
+  "name": "gacti-b3",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:Gacti": "node dist/gacti/server/server.mjs"
+    "serve:ssr:GACTI-B3": "node dist/gacti-b3/server/server.mjs"
   },
   "private": true,
   "dependencies": {
