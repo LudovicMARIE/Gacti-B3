@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+body {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow:hidden;
+    font-family: 'Roboto Slab', serif;
+}
+
+html > div[style] {
+    display: none !important;
+  }
+
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+div.loading{
+    display:none;
+    background-color:rgb(96, 108, 56);
+    text-align: center;
+    padding:5px;
+    border-radius: 5px;
+    color:white;
+    
+}
+
+h1 {
+    text-align: center;
+}
+
+div.log {
+    border: 0px solid black;
+    border-radius: 5px;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top:12%;
+    padding:20px;
+    border-radius: 10px;
+    background-color: rgba(254, 250, 224, 0.4);
+}
+form.login{
+    display:block;
+}
+
+img{
+    width:300px;
+    height:auto;
+}
+div.image{
+    text-align:center;
+}
+input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  margin-top:4px;
+  display: inline-block;
+  border: 1px solid #aaa;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  box-sizing: border-box;
+  z-index: 1;
+  border:2px solid rgb(96, 108, 56);
+}
+
+label{
+    color:white;
+    background:rgb(96, 108, 56);
+    padding:6px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    z-index: 10;
+}
+button{
+    background-color: rgb(96, 108, 56); /* Green */
+    border-radius:5px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border:2px solid rgb(96, 108, 56);
+    transition: all .2s ease-in-out;
+    width:100%;
+    cursor:pointer;
+    margin-top:20px;
+    font-family: 'Roboto Slab', serif;
+    
+}
+
+button:hover,button:focus{
+    background-color: #28AFB0;
+    color: #FFFFFF;
+    border:2px solid #19647E;
+    size:100%;
+    -moz-transition:color .2s ease-in;
+    -o-transition:color .2s ease-in;
+    -webkit-transition:color .2s ease-in;
+    transition: all .2s ease-in-out;
+
+}
+
+div.login-text{
+    margin-top:20px;
+}
+
+div.wrong-pass{
+    background-color:rgb(255,0,0);
+    text-align: center;
+    padding:5px;
+    border-radius: 5px;
+}

@@ -1,3 +1,41 @@
-<p>
-  login works!
-</p>
+<video playsinline autoplay muted loop poster="../../assets/background-mp4.mp4">
+  <source src="../../assets/background-mp4.mp4" type="video/mp4">
+</video>
+  <div class="log">
+  <form class='login' [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="image">  <img src="../../assets/logo.png"></div>
+            <div class="login-text">
+            <label for="login">Utilisateur : </label>
+            <input class='publication' formControlName="username" type='text'/>
+            </div>
+            <div class="login-text">
+            <label for="password">Mot de passe : </label>
+            <input class='publication' formControlName="password" type='password'/>
+            </div>
+            <div class="loading" id="loading">
+                Connexion en cours...
+            </div>
+            <!-- <?php
+            if (isset($_GET["var"])){
+              if($_GET["var"] == "wrong"){?>
+              <div class="wrong-pass" id="wrong-pass">
+                Identifiant et/ou mot de passe incorrect
+              </div>
+               <?php
+              }
+            }
+            ?> -->
+            <button type="submit" id='btnLog'>Connexion</button>
+  </form>
+</div>
+<script>
+  const targetDiv = document.getElementById("loading");
+      const btn = document.getElementById("btnLog");
+      btn.onclick = function () {
+        //if (targetDiv.style.display !== "block") {
+          targetDiv.style.display = "block";
+          document.getElementById("wrong-pass").style.display = "none";
+        }
+  //document.getElementById("actList").innerHTML = "Chargement en cours..";
+  //        DivActList.style.display = "block";
+</script>
