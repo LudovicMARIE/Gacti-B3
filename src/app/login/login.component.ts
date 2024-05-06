@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../_services/login.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { User } from '../_interfaces/user';
+import { SessionService } from '../_services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ export class LoginComponent implements OnInit {
   username!: string;
   password!: string;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService,
+    private sessionService: SessionService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -25,13 +28,38 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(): void {
+    this.errorMessage = null;
     this.username = this.form.get('username')?.value;
     this.password = this.form.get('password')?.value;
     this.loginService.login({ username: this.username, password: this.password })
       .subscribe({
         next: (response) => {
-          console.log('Login successful', response);
+          if (response['COUNT(*)'] !== 1) {
+            this.errorMessage = 'Identifiant et/ou mot de passe incorrect';
+            return;
+          }else{
+            let currentUser: User = {
+              username: response.USER,
+              password: response.MDP,
+              firstName: response.NOMCOMPTE,
+              lastName: response.PRENOMCOMPTE,
+              registrationDate: response.DATEINSCRIP,
+              closingDate: response.DATEFERME,
+              profileType: response.TYPEPROFIL,
+              stayStartDate: response.DATEDEBSEJOUR,
+              stayEndDate: response.DATEFINSEJOUR,
+              birthDate: response.DATENAISCOMPTE,
+              mail: response.ADRMAILCOMPTE,
+              phone: response.NOTELCOMPTE
+              
+          }
+          this.sessionService.createSession(currentUser);
+          console.log(currentUser);
+          }
+          console.log('successful call', response);
           // Handle successful login here (e.g., routing, storage)
+
+          
         },
         error: (error) => {
           this.errorMessage = 'Identifiant et/ou mot de passe incorrect';
@@ -54,7 +82,7 @@ export class LoginComponent implements OnInit {
   $DATENAISCOMPTE = $result['DATENAISCOMPTEFORMAT'];
   $ADRMAILCOMPTE = $result['ADRMAILCOMPTE'];
   $NOTELCOMPTE = $result['NOTELCOMPTE'];
-  
+
   $result = mysqli_query($con, $sql);
   $row = $result->fetch_assoc();
   $counter = (int) $row["COUNT(*)"];
@@ -74,7 +102,7 @@ export class LoginComponent implements OnInit {
       $_SESSION['DATENAISCOMPTE'] = $DATENAISCOMPTE;
       $_SESSION['ADRMAILCOMPTE'] = $ADRMAILCOMPTE;
       $_SESSION['NOTELCOMPTE'] = $NOTELCOMPTE;
-      
+
       if ($typeprofil == 0) {
           header("location:../users/admin/admin.php");
       }elseif ($typeprofil == 2) {

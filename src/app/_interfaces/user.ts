@@ -8,6 +8,7 @@ export interface User {
     profileType: string;
     stayStartDate: Date;
     stayEndDate: Date;
+    birthDate: Date;
     mail: string;
     phone: string;
 }
