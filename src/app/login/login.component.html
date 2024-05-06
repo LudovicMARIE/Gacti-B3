@@ -15,6 +15,9 @@
             <div class="loading" id="loading">
                 Connexion en cours...
             </div>
+            <div class="wrong-pass" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
             <!-- <?php
             if (isset($_GET["var"])){
               if($_GET["var"] == "wrong"){?>
