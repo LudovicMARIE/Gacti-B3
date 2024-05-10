@@ -18,27 +18,6 @@
             <div class="wrong-pass" *ngIf="errorMessage">
               {{ errorMessage }}
             </div>
-            <!-- <?php
-            if (isset($_GET["var"])){
-              if($_GET["var"] == "wrong"){?>
-              <div class="wrong-pass" id="wrong-pass">
-                Identifiant et/ou mot de passe incorrect
-              </div>
-               <?php
-              }
-            }
-            ?> -->
             <button type="submit" id='btnLog'>Connexion</button>
   </form>
 </div>
-<script>
-  const targetDiv = document.getElementById("loading");
-      const btn = document.getElementById("btnLog");
-      btn.onclick = function () {
-        //if (targetDiv.style.display !== "block") {
-          targetDiv.style.display = "block";
-          document.getElementById("wrong-pass").style.display = "none";
-        }
-  //document.getElementById("actList").innerHTML = "Chargement en cours..";
-  //        DivActList.style.display = "block";
-</script>

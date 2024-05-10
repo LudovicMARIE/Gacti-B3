@@ -1,4 +1,53 @@
 <app-navbar></app-navbar>
-<p>
-  home works!
-</p>
+<div class="main">
+  <div class="hello">
+    <span class="hello-print">
+      Bonjour {{ User?.firstName}} {{User?.lastName}}
+    </span>
+  </div>
+  <div class="panel">
+    <div class="uppanel">
+
+    </div>
+
+    <div class="downpanel">
+      <div class="informations">
+        <span>Mes informations</span>
+          <table>
+            <tr>
+              <td>Prénom:</td>
+              <td>{{ User?.firstName }}</td>
+            </tr>
+            <tr>
+              <td>Nom:</td>
+              <td>{{ User?.lastName }}</td>
+            </tr>
+            <tr>
+              <td>Date de naissance:</td>
+              <td>{{ User?.birthDate }}</td>
+            </tr>
+            <tr>
+              <td>Date d'inscription:</td>
+              <td>{{ User?.registrationDate }}</td>
+            </tr>
+            <tr>
+              <td>Adresse mail:</td>
+              <td>{{ User?.mail }}</td>
+            </tr>
+            <tr>
+              <td>Numéro de téléphone:</td>
+              <td>{{ User?.phone }}</td>
+            </tr>
+            <tr>
+              <td>Début du séjour:</td>
+              <td>{{ User?.stayStartDate }}</td>
+            </tr>
+            <tr>
+              <td>Fin du séjour:</td>
+              <td>{{ User?.stayEndDate }}</td>
+            </tr>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>
