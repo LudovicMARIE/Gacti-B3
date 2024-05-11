@@ -35,27 +35,7 @@ def get_db():
     finally:
         cursor.close()
         connection.close()
-
-# Example endpoint to fetch data
-@app.get("/comptes/")
-def read_items(db=Depends(get_db)):
-    db.execute("SELECT * FROM compte")
-    return db.fetchall()
-
-
-
-
-@app.get("/login")
-def login(username: str, password: str, db=Depends(get_db)):
-    db.execute("SELECT COUNT(*),TYPEPROFIL,NOMCOMPTE,PRENOMCOMPTE,DATEINSCRIP, DATE_FORMAT(DATEINSCRIP,'%%d/%m/%Y') AS DATEINSCRIPFORMAT,DATEFERME,DATEDEBSEJOUR,DATE_FORMAT(DATEDEBSEJOUR,'%%d/%m/%Y') AS DATEDEBSEJOURFORMAT,DATEFINSEJOUR,DATE_FORMAT(DATEFINSEJOUR,'%%d/%m/%Y') AS DATEFINSEJOURFORMAT,DATENAISCOMPTE,DATE_FORMAT(DATENAISCOMPTE,'%%d/%m/%Y') AS DATENAISCOMPTEFORMAT,ADRMAILCOMPTE,NOTELCOMPTE FROM compte WHERE USER = %s and MDP = %s", (username, password))
-    item = db.fetchone()
-    if item is not None:
-        return item
-    raise HTTPException(status_code=404, detail="No user found")
-
-
-
-
+        
 # Create an item
 @app.post("/items/")
 def create_item(name: str, description: str, db=Depends(get_db)):
@@ -84,4 +64,35 @@ def update_item(item_id: int, name: str, description: str, db=Depends(get_db)):
 def delete_item(item_id: int, db=Depends(get_db)):
     db.execute("DELETE FROM items WHERE id = %s", (item_id,))
     db.connection.commit()
-    return {"message": "Item deleted"}
+    return {"message": "Item deleted"}        
+        
+        
+
+
+# Example endpoint to fetch data
+@app.get("/comptes/")
+def read_items(db=Depends(get_db)):
+    db.execute("SELECT * FROM compte")
+    return db.fetchall()
+
+
+
+# login endpoint
+@app.get("/login")
+def login(username: str, password: str, db=Depends(get_db)):
+    db.execute("SELECT COUNT(*),TYPEPROFIL,NOMCOMPTE,PRENOMCOMPTE,DATEINSCRIP, DATE_FORMAT(DATEINSCRIP,'%%d/%m/%Y') AS DATEINSCRIPFORMAT,DATEFERME,DATEDEBSEJOUR,DATE_FORMAT(DATEDEBSEJOUR,'%%d/%m/%Y') AS DATEDEBSEJOURFORMAT,DATEFINSEJOUR,DATE_FORMAT(DATEFINSEJOUR,'%%d/%m/%Y') AS DATEFINSEJOURFORMAT,DATENAISCOMPTE,DATE_FORMAT(DATENAISCOMPTE,'%%d/%m/%Y') AS DATENAISCOMPTEFORMAT,ADRMAILCOMPTE,NOTELCOMPTE FROM compte WHERE USER = %s and MDP = %s", (username, password))
+    item = db.fetchone()
+    if item is not None:
+        return item
+    raise HTTPException(status_code=404, detail="No user found")
+
+# activity endpoint
+@app.get("/activities")
+def activity(db=Depends(get_db)):
+    db.execute("SELECT AN.CODEANIM,DATEACT, `CODEETATACT`, `HRRDVACT`, `PRIXACT`, `HRDEBUTACT`, `HRFINACT`, `DATEANNULEACT`, `NOMRESP`, `PRENOMRESP`, `NOMANIM` FROM `activite` INNER JOIN animation AS AN ON activite.CODEANIM = AN.CODEANIM WHERE DATEACT>CURDATE() ORDER BY DATEACT")
+    item = db.fetchall()
+    if item is not None:
+        return item
+    raise HTTPException(status_code=404, detail="No activity found")
+
+

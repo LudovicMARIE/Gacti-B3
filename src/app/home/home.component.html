@@ -1,6 +1,7 @@
+<div class="body">
 <app-navbar></app-navbar>
 <div class="main">
-  <div class="hello">
+  <div class="hello" *ngIf="page == 'default'">
     <span class="hello-print">
       Bonjour {{ User?.firstName}} {{User?.lastName}}
     </span>
@@ -11,7 +12,7 @@
     </div>
 
     <div class="downpanel">
-      <div class="informations">
+      <div class="informations" *ngIf="page == 'default'">
         <span>Mes informations</span>
           <table>
             <tr>
@@ -48,6 +49,68 @@
             </tr>
           </table>
       </div>
+
+      <div class="activites" id="activites" *ngIf="page == 'activityList'">
+        <div class="comboboxAct" id="comboboxAct">
+          <select name="act" onChange="loadActivites(this.value)">
+            <option value="" selected disabled hidden>Choisissez un type d'activité</option>
+            <!--<?php
+            $sql2="SELECT CODEANIM,NOMANIM FROM animation";
+            foreach ($con->query($sql2) as $row) {
+                echo "<option value=$row[CODEANIM]>$row[NOMANIM]</option>";
+                }
+            ?>-->
+            <option value='all'>Toutes les activités</option>
+          </select>
+        </div>
+        <div class="afficher_activites" id="afficher_activites">
+          
+        </div>
+       </div>
+
+       <div class="activites_inscrites" id="activites_inscrites" *ngIf="page == 'activitiesRegistered'">
+        <div class="afficher_activites">
+        <!--<?php
+       $sql = "SELECT AN.CODEANIM, activite.DATEACT, DATE_FORMAT(activite.DATEACT,'%d/%m/%Y') AS DATEACTFORMAT, `CODEETATACT`, `HRRDVACT`, `PRIXACT`, `HRDEBUTACT`, `HRFINACT`, DATE_FORMAT(DATEANNULEACT,'%d/%m/%Y') as DATEANNULEACT, `NOMRESP`, `PRENOMRESP`, `NOMANIM`, INS.NOINSCRIP, INS.USER, INS.CODEANIM, INS.DATEACT, INS.DATEINSCRIP, INS.DATEANNULE
+                FROM `activite`
+                INNER JOIN animation AS AN ON activite.CODEANIM = AN.CODEANIM
+                INNER JOIN inscription AS INS ON activite.DATEACT = INS.DATEACT
+                WHERE activite.DATEACT > CURDATE() AND INS.USER = '$username'
+                ORDER BY activite.DATEACT";
+          $query = mysqli_query($con, $sql);
+          while ($row = mysqli_fetch_assoc($query)){
+            $DATEACT = $row['DATEACT'];
+            $DATEACTFORMAT = $row['DATEACTFORMAT'];
+            $NOMANIM = $row['NOMANIM'];
+            $PRIXACT = $row['PRIXACT'];
+            $HRRDVACT = $row['HRRDVACT'];
+            $CODEANIM = $row['CODEANIM'];
+              echo "<div class='card'>";
+              echo "<div class='titreCard'>".$NOMANIM."</div>";
+              echo "<form class='actCard' method='post' action='../../trt/trt_suppr_inscription.php'>";
+              echo "<div class='champAct'>
+                    <label for='dateAct'>Date de l'activité :</label>
+                    <input type='date' id='dateAct' name='date_act' value='$DATEACT'/>
+                    </div>";
+              echo "<div class='champAct'>
+                    <label for='code_anim'>Code de l'animation :</label>
+                    <input type='text' id='code_anim' name='code_anim' value='$CODEANIM'/>
+                    </div>";
+              echo "Date : ".$DATEACTFORMAT."<br/>";
+              echo "Prix : ".$PRIXACT."€"."<br/>";
+              echo "<div class='buttonAct'>";
+              echo "Inscrit";
+              echo "<button type='submit' name='action' class='btn_desinscription'>Se désinscrire</button>";
+              echo "</div>";
+              echo "</form>";
+              echo "</div>";
+            
+            
+          }
+          ?>-->
+          </div>
+       </div>
     </div>
   </div>
+</div>
 </div>

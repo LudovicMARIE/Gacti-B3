@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+
+* {
+    font-family: 'Roboto Slab', serif;
+    list-style:none;
+    background-color:rgb(254, 250, 224);
+}
+
+.body{
+    min-height: 100vh;
+}
+
+
+span{
+    background-color:rgba(255,255,255,0.5);
+    padding-left:10px;
+    padding-right:10px;
+    padding:5px;
+    border-radius: 5px;
+}
+
+div.hello{
+    background-size:cover;
+    background-color : rgb(254, 250, 224);
+    height:200px;
+    font-size:30px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+    margin-top:-8px;
+    margin-left:-40px;
+    margin-right:-20px;
+
+}
+
+span.hello-disco{
+    font-size:15px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+div.informations{
+    padding-top:5px;
+}
+
+div.informations span{
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+
+
+
+
+div.panel{
+    border-top:5px solid #283618;
+}
+
+
+div.downpanel{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+div.afficher_activites,div.afficher_animations{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+div.afficher_animations{
+    align-items: flex-start;
+}
+div.card,div.cardAnim{
+    width:250px;
+    border:2px solid #280003;
+    background-color: #283618;
+    border-radius: 5px;
+    color:white;
+    font-size:20px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    margin:30px;
+
+    -moz-transition:color .2s ease-in;
+    -o-transition:color .2s ease-in;
+    -webkit-transition:color .2s ease-in;
+    transition: all .2s ease-in-out;
+}
+
+div.cardAnim{
+    height:fit-content;
+}
+
+div.card:hover, div.cardAnim:hover{
+    background-color: #3b5023;
+    -moz-transition:color .2s ease-in;
+    -o-transition:color .2s ease-in;
+    -webkit-transition:color .2s ease-in;
+    transition: all .2s ease-in-out;
+}
+div.card button,div.cardAnim button{
+    padding: 5px 5px;
+    font-size: 14px;
+    height:fit-content;
+}
+button.del_act:hover{
+    background-color:red;
+    border:2px solid #B60000;
+    -moz-transition:color .2s ease-in;
+    -o-transition:color .2s ease-in;
+    -webkit-transition:color .2s ease-in;
+    transition: all .2s ease-in-out;
+}
+div.titreCard{
+    font-size:16px;
+    width:100%;
+    border-bottom: 2px solid #280003;
+}
+div.champAct, div.champAnim{
+    display:none;
+}
+div.buttonAct,div.buttonAnim{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: auto;
+    margin-top:5px;
+}
+
+div.buttonAct button,div.buttonAnim button{
+    margin:0px 5px 5px 5px;
+}
+
+
+
+form.actCard{
+    margin:0px 5px 5px 5px;
+}
+
+
