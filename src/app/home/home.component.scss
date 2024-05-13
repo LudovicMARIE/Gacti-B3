@@ -4,11 +4,12 @@
 * {
     font-family: 'Roboto Slab', serif;
     list-style:none;
-    background-color:rgb(254, 250, 224);
+    
 }
 
 .body{
     min-height: 100vh;
+    background-color:rgb(254, 250, 224);
 }
 
 
@@ -142,8 +143,26 @@ div.buttonAct button,div.buttonAnim button{
 
 
 
-form.actCard{
+.actCard{
     margin:0px 5px 5px 5px;
+}
+
+button.btn_inscription{
+    background-color: #606c38; /* Green */
+    border-radius: 5px;
+    border: none;
+    color: white;
+    height:100%;
+    margin-top:auto;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border:2px solid #606c38;
+    transition: all .2s ease-in-out;
+    width:100%;
+    cursor:pointer;
 }
 
 

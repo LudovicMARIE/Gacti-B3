@@ -1,6 +1,7 @@
 import mysql.connector
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -86,7 +87,7 @@ def login(username: str, password: str, db=Depends(get_db)):
         return item
     raise HTTPException(status_code=404, detail="No user found")
 
-# activity endpoint
+# activities endpoint
 @app.get("/activities")
 def activity(db=Depends(get_db)):
     db.execute("SELECT AN.CODEANIM,DATEACT, `CODEETATACT`, `HRRDVACT`, `PRIXACT`, `HRDEBUTACT`, `HRFINACT`, `DATEANNULEACT`, `NOMRESP`, `PRENOMRESP`, `NOMANIM` FROM `activite` INNER JOIN animation AS AN ON activite.CODEANIM = AN.CODEANIM WHERE DATEACT>CURDATE() ORDER BY DATEACT")
@@ -95,4 +96,38 @@ def activity(db=Depends(get_db)):
         return item
     raise HTTPException(status_code=404, detail="No activity found")
 
+# activity endpoint
+@app.get("/activity/{codeanim}")
+def activity(codeanim: str ,db=Depends(get_db)):
+    db.execute("SELECT AN.CODEANIM,DATEACT, `CODEETATACT`, `HRRDVACT`, `PRIXACT`, `HRDEBUTACT`, `HRFINACT`, `DATEANNULEACT`, `NOMRESP`, `PRENOMRESP`, `NOMANIM` FROM `activite` INNER JOIN animation AS AN ON activite.CODEANIM = AN.CODEANIM WHERE DATEACT>CURDATE() AND AN.CODETYPEANIM = %s ORDER BY DATEACT", (codeanim,))
+    item = db.fetchall()
+    if item is not None:
+        return item
+    raise HTTPException(status_code=404, detail="No activity found")
 
+# animation type getter
+@app.get("/animationType")
+def activity_type(db=Depends(get_db)):
+    db.execute("SELECT CODETYPEANIM, NOMTYPEANIM FROM `type_anim` ORDER BY `CODETYPEANIM` ASC")
+    item = db.fetchall()
+    if item is not None:
+        return item
+    raise HTTPException(status_code=404, detail="No animation type found")
+
+
+
+class RegisterActivityRequest(BaseModel):
+    username: str
+    codeanim: str
+    dateact: str
+
+# activity register
+@app.post("/registerActivity")
+def register(request: RegisterActivityRequest,  db=Depends(get_db)):
+    db.execute("SELECT COUNT(*),`USER`, `CODEANIM`, `DATEACT` FROM `inscription` WHERE `USER`=%s AND `CODEANIM`=%s AND `DATEACT`=%s", (request.username, request.codeanim, request.dateact))
+    item = db.fetchone()
+    if item['COUNT(*)'] > 0:
+        raise HTTPException(status_code=403, detail="Activity already registered")
+    db.execute("INSERT INTO `inscription`(`USER`, `CODEANIM`, `DATEACT`, `DATEINSCRIP`, `DATEANNULE`) VALUES (%s,%s,%s,CURDATE(),NULL)", (request.username, request.codeanim, request.dateact))
+    db._connection.commit()
+    return {"message": "Activity registered"}

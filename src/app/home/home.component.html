@@ -3,7 +3,7 @@
 <div class="main">
   <div class="hello" *ngIf="page == 'default'">
     <span class="hello-print">
-      Bonjour {{ User?.firstName}} {{User?.lastName}}
+      Bonjour {{ User.firstName}} {{User.lastName}}
     </span>
   </div>
   <div class="panel">
@@ -17,98 +17,83 @@
           <table>
             <tr>
               <td>Prénom:</td>
-              <td>{{ User?.firstName }}</td>
+              <td>{{ User.firstName }}</td>
             </tr>
             <tr>
               <td>Nom:</td>
-              <td>{{ User?.lastName }}</td>
+              <td>{{ User.lastName }}</td>
             </tr>
             <tr>
               <td>Date de naissance:</td>
-              <td>{{ User?.birthDate }}</td>
+              <td>{{ User.birthDate }}</td>
             </tr>
             <tr>
               <td>Date d'inscription:</td>
-              <td>{{ User?.registrationDate }}</td>
+              <td>{{ User.registrationDate }}</td>
             </tr>
             <tr>
               <td>Adresse mail:</td>
-              <td>{{ User?.mail }}</td>
+              <td>{{ User.mail }}</td>
             </tr>
             <tr>
               <td>Numéro de téléphone:</td>
-              <td>{{ User?.phone }}</td>
+              <td>{{ User.phone }}</td>
             </tr>
             <tr>
               <td>Début du séjour:</td>
-              <td>{{ User?.stayStartDate }}</td>
+              <td>{{ User.stayStartDate }}</td>
             </tr>
             <tr>
               <td>Fin du séjour:</td>
-              <td>{{ User?.stayEndDate }}</td>
+              <td>{{ User.stayEndDate }}</td>
             </tr>
           </table>
       </div>
 
       <div class="activites" id="activites" *ngIf="page == 'activityList'">
         <div class="comboboxAct" id="comboboxAct">
-          <select name="act" onChange="loadActivites(this.value)">
+          <select #selectAnimType name="act" (input)="onFilterChangeActivities(selectAnimType.value)">
             <option value="" selected disabled hidden>Choisissez un type d'activité</option>
+            <option value="all">Toutes les activités</option>
+            <option [value]="animType.codeTypeAnim" *ngFor="let animType of animationTypeList">{{animType.nomTypeAnim}}</option>
             <!--<?php
             $sql2="SELECT CODEANIM,NOMANIM FROM animation";
             foreach ($con->query($sql2) as $row) {
                 echo "<option value=$row[CODEANIM]>$row[NOMANIM]</option>";
                 }
             ?>-->
-            <option value='all'>Toutes les activités</option>
           </select>
         </div>
         <div class="afficher_activites" id="afficher_activites">
-          
+          <div 
+          class='card'
+          *ngFor="let activity of activityList" 
+          style='background-color:#E55812'
+          [ngStyle]="{'background-color': (activity.dateAnnuleAct == null) ? '#283618' : '#E55812'}">
+            <div class='titreCard'>{{ activity.nomAnim }}</div>
+            <div class='actCard' method='post' action=''>
+            <div class='champAct'>
+            <label for='dateAct'>Date de l'activité :</label>
+            <input type='date' id='dateAct' name='date_act' [value]='activity.dateAct'/>
+            </div>
+            <div class='champAct'>
+            <label for='code_anim'>Code de l'animation :</label>
+            <input type='text' id='code_anim' name='code_anim' [value]='activity.codeAnim'/>
+            </div>
+            Date : {{activity.dateAct}}<br/>
+            Prix : {{activity.prixAct}}€<br/>
+            <div *ngIf="activity.dateAnnuleAct != null">Annulée le {{activity.dateAnnuleAct}}</div>
+            <div class='buttonAct'>
+            <button type='button' (click)="registerActivity(activity)" *ngIf="User.profileType == '2' && activity.dateAnnuleAct == null" class='btn_inscription'>S'inscrire</button>
+            </div>
+            </div>
+          </div>
         </div>
        </div>
 
        <div class="activites_inscrites" id="activites_inscrites" *ngIf="page == 'activitiesRegistered'">
         <div class="afficher_activites">
-        <!--<?php
-       $sql = "SELECT AN.CODEANIM, activite.DATEACT, DATE_FORMAT(activite.DATEACT,'%d/%m/%Y') AS DATEACTFORMAT, `CODEETATACT`, `HRRDVACT`, `PRIXACT`, `HRDEBUTACT`, `HRFINACT`, DATE_FORMAT(DATEANNULEACT,'%d/%m/%Y') as DATEANNULEACT, `NOMRESP`, `PRENOMRESP`, `NOMANIM`, INS.NOINSCRIP, INS.USER, INS.CODEANIM, INS.DATEACT, INS.DATEINSCRIP, INS.DATEANNULE
-                FROM `activite`
-                INNER JOIN animation AS AN ON activite.CODEANIM = AN.CODEANIM
-                INNER JOIN inscription AS INS ON activite.DATEACT = INS.DATEACT
-                WHERE activite.DATEACT > CURDATE() AND INS.USER = '$username'
-                ORDER BY activite.DATEACT";
-          $query = mysqli_query($con, $sql);
-          while ($row = mysqli_fetch_assoc($query)){
-            $DATEACT = $row['DATEACT'];
-            $DATEACTFORMAT = $row['DATEACTFORMAT'];
-            $NOMANIM = $row['NOMANIM'];
-            $PRIXACT = $row['PRIXACT'];
-            $HRRDVACT = $row['HRRDVACT'];
-            $CODEANIM = $row['CODEANIM'];
-              echo "<div class='card'>";
-              echo "<div class='titreCard'>".$NOMANIM."</div>";
-              echo "<form class='actCard' method='post' action='../../trt/trt_suppr_inscription.php'>";
-              echo "<div class='champAct'>
-                    <label for='dateAct'>Date de l'activité :</label>
-                    <input type='date' id='dateAct' name='date_act' value='$DATEACT'/>
-                    </div>";
-              echo "<div class='champAct'>
-                    <label for='code_anim'>Code de l'animation :</label>
-                    <input type='text' id='code_anim' name='code_anim' value='$CODEANIM'/>
-                    </div>";
-              echo "Date : ".$DATEACTFORMAT."<br/>";
-              echo "Prix : ".$PRIXACT."€"."<br/>";
-              echo "<div class='buttonAct'>";
-              echo "Inscrit";
-              echo "<button type='submit' name='action' class='btn_desinscription'>Se désinscrire</button>";
-              echo "</div>";
-              echo "</form>";
-              echo "</div>";
-            
-            
-          }
-          ?>-->
-          </div>
+        </div>
        </div>
     </div>
   </div>
