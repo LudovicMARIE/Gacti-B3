@@ -67,15 +67,7 @@ def delete_item(item_id: int, db=Depends(get_db)):
     db.execute("DELETE FROM items WHERE id = %s", (item_id,))
     db.connection.commit()
     return {"message": "Item deleted"}        
-        
-        
 
-
-# Example endpoint to fetch data
-@app.get("/comptes/")
-def read_items(db=Depends(get_db)):
-    db.execute("SELECT * FROM compte")
-    return db.fetchall()
 
 
 
@@ -87,6 +79,26 @@ def login(username: str, password: str, db=Depends(get_db)):
     if item is not None:
         return item
     raise HTTPException(status_code=404, detail="No user found")
+
+class SignupRequest(BaseModel):
+    user: str
+    mdp: str
+    nomcompte: str
+    prenomcompte: str
+    datedebsejour: str
+    datefinsejour: str
+    datenaiscompte: str
+    adrmailcompte: str
+    notelcompte: str
+
+
+# sign up
+@app.post("/signup")
+def login(signup_request: SignupRequest, db=Depends(get_db)):
+    db.execute("INSERT INTO `compte` (`USER`, `MDP`, `NOMCOMPTE`, `PRENOMCOMPTE`, `DATEINSCRIP`, `DATEFERME`, `TYPEPROFIL`, `DATEDEBSEJOUR`, `DATEFINSEJOUR`, `DATENAISCOMPTE`, `ADRMAILCOMPTE`, `NOTELCOMPTE`) VALUES (%s, SHA2('%s',256), %s, %s, CURDATE(), NULL, '2', %s, %s, %s, %s, %s)", (signup_request.user, signup_request.mdp, signup_request.nomcompte, signup_request.prenomcompte, signup_request.datedebsejour, signup_request.datefinsejour, signup_request.datenaiscompte, signup_request.adrmailcompte, signup_request.notelcompte))
+    db._connection.commit()
+    return { "message": "Signup successful" }
+
 
 # get all activities
 @app.get("/activities")
