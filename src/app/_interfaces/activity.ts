@@ -32,3 +32,9 @@ export interface Animation {
     difficulteAnim: string;
 
 }
+
+export interface Registration{
+    noRegistration: number;
+    activity: Activity;
+    registrationDate: Date;
+}

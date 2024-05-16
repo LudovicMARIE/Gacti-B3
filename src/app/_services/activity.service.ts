@@ -16,15 +16,27 @@ export class ActivityService {
   }
 
   getActivityByAnimType(codeanim: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/activity/${codeanim}`);
+    return this.http.get(`${this.apiUrl}/activities/${codeanim}`);
   }
 
   registerActivity(credentials: { username: string; codeanim: string; dateact: string; }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/registerActivity`,credentials);
+    return this.http.post(`${this.apiUrl}/register-activity`,credentials);
   }
 
   getActivityType(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/animationType`);
+    return this.http.get(`${this.apiUrl}/animation-types`);
+  }
+
+  getActivitiesRegisteredByUser(username: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/activities/registered/${username}`);
+  }
+
+  deleteRegistration(registrationNumber: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/activities/registered/${registrationNumber}`);
+  }
+
+  deleteActivity(codeAnim: string, dateAct: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete-activity/${codeAnim}/${dateAct}`);
   }
 
 

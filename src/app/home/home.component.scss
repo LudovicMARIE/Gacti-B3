@@ -90,12 +90,34 @@ div.card,div.cardAnim{
     align-items: center;
     text-align: center;
     margin:30px;
+    -webkit-box-shadow: 0px 5px 23px -7px #000000; 
+    box-shadow: 0px 5px 23px -7px #000000;
 
     -moz-transition:color .2s ease-in;
     -o-transition:color .2s ease-in;
     -webkit-transition:color .2s ease-in;
     transition: all .2s ease-in-out;
 }
+
+.cardAnnule{
+    background-color: #E55812 !important;
+    -moz-transition:color .2s ease-in;
+    -o-transition:color .2s ease-in;
+    -webkit-transition:color .2s ease-in;
+    transition: all .2s ease-in-out;
+
+}
+
+
+.cardAnnule:hover{
+    background-color: #ed7031 !important;
+    -moz-transition:color .2s ease-in;
+    -o-transition:color .2s ease-in;
+    -webkit-transition:color .2s ease-in;
+    transition: all .2s ease-in-out;
+
+}
+
 
 div.cardAnim{
     height:fit-content;
@@ -125,9 +147,6 @@ div.titreCard{
     font-size:16px;
     width:100%;
     border-bottom: 2px solid #280003;
-}
-div.champAct, div.champAnim{
-    display:none;
 }
 div.buttonAct,div.buttonAnim{
     display:flex;

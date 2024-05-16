@@ -17,6 +17,7 @@ origins = [
     "http://localhost:8000",
     "http://localhost:4200",
     "http://localhost:80",
+    "http://127.0.0.1:8000",
 ]
 
 app.add_middleware(
@@ -78,16 +79,16 @@ def read_items(db=Depends(get_db)):
 
 
 
-# login endpoint
+# login
 @app.get("/login")
 def login(username: str, password: str, db=Depends(get_db)):
-    db.execute("SELECT COUNT(*),TYPEPROFIL,NOMCOMPTE,PRENOMCOMPTE,DATEINSCRIP, DATE_FORMAT(DATEINSCRIP,'%%d/%m/%Y') AS DATEINSCRIPFORMAT,DATEFERME,DATEDEBSEJOUR,DATE_FORMAT(DATEDEBSEJOUR,'%%d/%m/%Y') AS DATEDEBSEJOURFORMAT,DATEFINSEJOUR,DATE_FORMAT(DATEFINSEJOUR,'%%d/%m/%Y') AS DATEFINSEJOURFORMAT,DATENAISCOMPTE,DATE_FORMAT(DATENAISCOMPTE,'%%d/%m/%Y') AS DATENAISCOMPTEFORMAT,ADRMAILCOMPTE,NOTELCOMPTE FROM compte WHERE USER = %s and MDP = %s", (username, password))
+    db.execute("SELECT COUNT(*),USER,TYPEPROFIL,NOMCOMPTE,PRENOMCOMPTE,DATEINSCRIP, DATE_FORMAT(DATEINSCRIP,'%%d/%m/%Y') AS DATEINSCRIPFORMAT,DATEFERME,DATEDEBSEJOUR,DATE_FORMAT(DATEDEBSEJOUR,'%%d/%m/%Y') AS DATEDEBSEJOURFORMAT,DATEFINSEJOUR,DATE_FORMAT(DATEFINSEJOUR,'%%d/%m/%Y') AS DATEFINSEJOURFORMAT,DATENAISCOMPTE,DATE_FORMAT(DATENAISCOMPTE,'%%d/%m/%Y') AS DATENAISCOMPTEFORMAT,ADRMAILCOMPTE,NOTELCOMPTE FROM compte WHERE USER = LOWER(%s) and MDP = SHA2(%s,256)", (username, password))
     item = db.fetchone()
     if item is not None:
         return item
     raise HTTPException(status_code=404, detail="No user found")
 
-# activities endpoint
+# get all activities
 @app.get("/activities")
 def activity(db=Depends(get_db)):
     db.execute("SELECT AN.CODEANIM,DATEACT, `CODEETATACT`, `HRRDVACT`, `PRIXACT`, `HRDEBUTACT`, `HRFINACT`, `DATEANNULEACT`, `NOMRESP`, `PRENOMRESP`, `NOMANIM` FROM `activite` INNER JOIN animation AS AN ON activite.CODEANIM = AN.CODEANIM WHERE DATEACT>CURDATE() ORDER BY DATEACT")
@@ -96,8 +97,23 @@ def activity(db=Depends(get_db)):
         return item
     raise HTTPException(status_code=404, detail="No activity found")
 
-# activity endpoint
-@app.get("/activity/{codeanim}")
+
+
+
+
+
+# get activity registered by user
+@app.get("/activities/registered/{username}")
+def activity(username: str, db=Depends(get_db)):
+    db.execute("SELECT AN.CODEANIM, activite.DATEACT, `CODEETATACT`, `HRRDVACT`, `PRIXACT`, `HRDEBUTACT`, `HRFINACT`, `DATEANNULEACT`, `NOMRESP`, `PRENOMRESP`, `NOMANIM`, INS.NOINSCRIP, INS.USER, INS.CODEANIM, INS.DATEACT, INS.DATEINSCRIP, INS.DATEANNULE FROM `activite` INNER JOIN animation AS AN ON activite.CODEANIM = AN.CODEANIM INNER JOIN inscription AS INS ON activite.DATEACT = INS.DATEACT WHERE activite.DATEACT > CURDATE() AND INS.USER = %s ORDER BY activite.DATEACT",(username,))
+    item = db.fetchall()
+    if item is not None:
+        return item
+    raise HTTPException(status_code=404, detail="No activity found")
+
+
+# get activities by type
+@app.get("/activities/{codeanim}")
 def activity(codeanim: str ,db=Depends(get_db)):
     db.execute("SELECT AN.CODEANIM,DATEACT, `CODEETATACT`, `HRRDVACT`, `PRIXACT`, `HRDEBUTACT`, `HRFINACT`, `DATEANNULEACT`, `NOMRESP`, `PRENOMRESP`, `NOMANIM` FROM `activite` INNER JOIN animation AS AN ON activite.CODEANIM = AN.CODEANIM WHERE DATEACT>CURDATE() AND AN.CODETYPEANIM = %s ORDER BY DATEACT", (codeanim,))
     item = db.fetchall()
@@ -105,8 +121,8 @@ def activity(codeanim: str ,db=Depends(get_db)):
         return item
     raise HTTPException(status_code=404, detail="No activity found")
 
-# animation type getter
-@app.get("/animationType")
+# get animation types
+@app.get("/animation-types")
 def activity_type(db=Depends(get_db)):
     db.execute("SELECT CODETYPEANIM, NOMTYPEANIM FROM `type_anim` ORDER BY `CODETYPEANIM` ASC")
     item = db.fetchall()
@@ -116,13 +132,15 @@ def activity_type(db=Depends(get_db)):
 
 
 
+
+
 class RegisterActivityRequest(BaseModel):
     username: str
     codeanim: str
     dateact: str
 
-# activity register
-@app.post("/registerActivity")
+# register activity
+@app.post("/register-activity")
 def register(request: RegisterActivityRequest,  db=Depends(get_db)):
     db.execute("SELECT COUNT(*),`USER`, `CODEANIM`, `DATEACT` FROM `inscription` WHERE `USER`=%s AND `CODEANIM`=%s AND `DATEACT`=%s", (request.username, request.codeanim, request.dateact))
     item = db.fetchone()
@@ -131,3 +149,20 @@ def register(request: RegisterActivityRequest,  db=Depends(get_db)):
     db.execute("INSERT INTO `inscription`(`USER`, `CODEANIM`, `DATEACT`, `DATEINSCRIP`, `DATEANNULE`) VALUES (%s,%s,%s,CURDATE(),NULL)", (request.username, request.codeanim, request.dateact))
     db._connection.commit()
     return {"message": "Activity registered"}
+
+# delete registration
+@app.delete("/activities/registered/{number}")
+def delete_registration(number: str, db=Depends(get_db)):
+    db.execute("DELETE FROM `inscription` WHERE NOINSCRIP = %s", (number,))
+    db._connection.commit()
+    return {"message": "Registration deleted"}
+
+
+# delete activity
+@app.delete("/delete-activity/{codeanim}/{dateact}")
+def delete_activity(codeanim: str, dateact: str, db=Depends(get_db)):
+    db.execute("DELETE FROM `inscription` WHERE CODEANIM = %s AND DATEACT = %s", (codeanim, dateact))
+    db._connection.commit()
+    db.execute("DELETE FROM `activite` WHERE CODEANIM = %s AND DATEACT = %s", (codeanim, dateact))
+    db._connection.commit()
+    return {"message": "Activity deleted"}

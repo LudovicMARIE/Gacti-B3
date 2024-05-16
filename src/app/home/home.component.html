@@ -68,23 +68,17 @@
           <div 
           class='card'
           *ngFor="let activity of activityList" 
-          style='background-color:#E55812'
-          [ngStyle]="{'background-color': (activity.dateAnnuleAct == null) ? '#283618' : '#E55812'}">
+          [ngClass]="{'cardAnnule': activity.dateAnnuleAct != null}"
+          >
+          <!-- [ngStyle]="{'background-color': (activity.dateAnnuleAct == null) ? '#283618' : '#E55812'}" -->
             <div class='titreCard'>{{ activity.nomAnim }}</div>
             <div class='actCard' method='post' action=''>
-            <div class='champAct'>
-            <label for='dateAct'>Date de l'activité :</label>
-            <input type='date' id='dateAct' name='date_act' [value]='activity.dateAct'/>
-            </div>
-            <div class='champAct'>
-            <label for='code_anim'>Code de l'animation :</label>
-            <input type='text' id='code_anim' name='code_anim' [value]='activity.codeAnim'/>
-            </div>
             Date : {{activity.dateAct}}<br/>
             Prix : {{activity.prixAct}}€<br/>
             <div *ngIf="activity.dateAnnuleAct != null">Annulée le {{activity.dateAnnuleAct}}</div>
             <div class='buttonAct'>
             <button type='button' (click)="registerActivity(activity)" *ngIf="User.profileType == '2' && activity.dateAnnuleAct == null" class='btn_inscription'>S'inscrire</button>
+            <button type='button' (click)="deleteActivity(activity)" *ngIf="User.profileType == '0'" class='btn_inscription'>Supprimer</button>
             </div>
             </div>
           </div>
@@ -93,6 +87,17 @@
 
        <div class="activites_inscrites" id="activites_inscrites" *ngIf="page == 'activitiesRegistered'">
         <div class="afficher_activites">
+          <div class='card' *ngFor="let registration of activityRegisteredList">
+          <div class='titreCard'>{{registration.activity.nomAnim}}</div>
+          <div class='actCard'>
+          Date : {{registration.activity.dateAct}}<br/>
+          Prix : {{registration.activity.prixAct}}€<br/>
+          <div class='buttonAct'>
+          Inscrit
+          <button type='button' name='action' (click)="deleteRegistration(registration.noRegistration)" class='btn_inscription'>Se désinscrire</button>
+          </div>
+          </div>
+          </div>
         </div>
        </div>
     </div>

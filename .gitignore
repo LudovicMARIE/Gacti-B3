@@ -1,6 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 todo.md
+src/assets/background-mp4.mp4
 
 # Compiled output
 /dist
