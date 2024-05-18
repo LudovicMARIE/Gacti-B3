@@ -2,7 +2,7 @@ package com.gactiapi.com.dto;
 
 import java.util.Date;
 
-public class CreateCompte {
+public class CreateCompteDto {
   private String idUser;
   private String mdp;
   private String nomCompte;
@@ -15,7 +15,11 @@ public class CreateCompte {
   private String adrMailCompte;
   private String telCompte;
 
-  public CreateCompte(String idUser, String mdp, String nomCompte, String prenomCompte, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte) {
+  public CreateCompteDto(){
+  this.dateInscrip = new Date();
+  }
+
+  public CreateCompteDto(String idUser, String mdp, String nomCompte, String prenomCompte, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte) {
     this.idUser = idUser;
     this.mdp = mdp;
     this.nomCompte = nomCompte;
@@ -27,7 +31,7 @@ public class CreateCompte {
     this.telCompte = telCompte;
   }
 
-  public CreateCompte(String idUser, String mdp, String nomCompte, String prenomCompte, String typeProfil, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte) {
+  public CreateCompteDto(String idUser, String mdp, String nomCompte, String prenomCompte, String typeProfil, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte) {
     this.idUser = idUser;
     this.mdp = mdp;
     this.nomCompte = nomCompte;
@@ -44,16 +48,32 @@ public class CreateCompte {
     return idUser;
   }
 
+  public void setIdUser(String idUser) {
+    this.idUser = idUser;
+  }
+
   public String getMdp() {
     return mdp;
+  }
+
+  public void setMdp(String mdp) {
+    this.mdp = mdp;
   }
 
   public String getNomCompte() {
     return nomCompte;
   }
 
+  public void setNomCompte(String nomCompte) {
+    this.nomCompte = nomCompte;
+  }
+
   public String getPrenomCompte() {
     return prenomCompte;
+  }
+
+  public void setPrenomCompte(String prenomCompte) {
+    this.prenomCompte = prenomCompte;
   }
 
   public Date getDateInscrip() {
@@ -64,23 +84,47 @@ public class CreateCompte {
     return dateFerme;
   }
 
+  public void setDateFerme(Date dateFerme) {
+    this.dateFerme = dateFerme;
+  }
+
   public String getTypeProfil() {
     return typeProfil;
+  }
+
+  public void setTypeProfil(String typeProfil) {
+    this.typeProfil = typeProfil;
   }
 
   public Date getDateDebSejour() {
     return dateDebSejour;
   }
 
+  public void setDateDebSejour(Date dateDebSejour) {
+    this.dateDebSejour = dateDebSejour;
+  }
+
   public Date getDateFinSejour() {
     return dateFinSejour;
+  }
+
+  public void setDateFinSejour(Date dateFinSejour) {
+    this.dateFinSejour = dateFinSejour;
   }
 
   public String getAdrMailCompte() {
     return adrMailCompte;
   }
 
+  public void setAdrMailCompte(String adrMailCompte) {
+    this.adrMailCompte = adrMailCompte;
+  }
+
   public String getTelCompte() {
     return telCompte;
+  }
+
+  public void setTelCompte(String telCompte) {
+    this.telCompte = telCompte;
   }
 }

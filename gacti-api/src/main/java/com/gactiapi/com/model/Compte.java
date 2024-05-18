@@ -1,16 +1,18 @@
 package com.gactiapi.com.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Compte {
+  @Id
   private String idUser;
   private String mdp;
   private String nomCompte;
   private String prenomCompte;
-  private Date dateInscrip;
+  private final Date dateInscrip;
   private Date dateFerme;
   private String typeProfil;
   private Date dateDebSejour;
@@ -18,8 +20,42 @@ public class Compte {
   private String adrMailCompte;
   private String telCompte;
 
-  public Compte() {
+  @ManyToMany
+  @JoinTable(
+    name = "compte_activite",
+    joinColumns = @jakarta.persistence.JoinColumn(name = "idUser"),
+    inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "idActivite")
+  )
+  private List<Activite> activites;
+
+  public Compte(){
     this.dateInscrip = new Date();
+  }
+
+  public Compte(String idUser, String mdp, String nomCompte, String prenomCompte, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte) {
+    this.idUser = idUser;
+    this.mdp = mdp;
+    this.nomCompte = nomCompte;
+    this.prenomCompte = prenomCompte;
+    this.dateInscrip = new Date();
+    this.typeProfil = "client";
+    this.dateDebSejour = dateDebSejour;
+    this.dateFinSejour = dateFinSejour;
+    this.adrMailCompte = adrMailCompte;
+    this.telCompte = telCompte;
+  }
+
+  public Compte(String idUser, String mdp, String nomCompte, String prenomCompte, String typeProfil, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte) {
+    this.idUser = idUser;
+    this.mdp = mdp;
+    this.nomCompte = nomCompte;
+    this.prenomCompte = prenomCompte;
+    this.dateInscrip = new Date();
+    this.typeProfil = typeProfil;
+    this.dateDebSejour = dateDebSejour;
+    this.dateFinSejour = dateFinSejour;
+    this.adrMailCompte = adrMailCompte;
+    this.telCompte = telCompte;
   }
 
   public String getIdUser() {
