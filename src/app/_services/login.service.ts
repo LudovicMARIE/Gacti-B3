@@ -11,7 +11,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: { username: string; password: string }): Observable<any> {
-    return this.http.get(`${this.apiUrl}/login`, { params: credentials });
+  login(credentials: { idUser: string; mdp: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/login`,credentials);
   }
 }

@@ -8,16 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Service
 public class CompteService {
   @Autowired
   private CompteRepository compteRepository;
+
+  public ResponseEntity<List<Compte>> findAllComptes() {
+    return new ResponseEntity<>(compteRepository.findAll(), HttpStatus.OK);
+  }
 
   public ResponseEntity<Compte> login(LoginDto loginDto) {
     Compte user = compteRepository.findByidUser(loginDto.getIdUser()).orElse(null);
@@ -70,3 +76,5 @@ public class CompteService {
 
 
 }
+
+

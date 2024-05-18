@@ -1,32 +1,27 @@
-package com.gactiapi.com.model;
+package com.gactiapi.com.dto;
 
-import jakarta.persistence.*;
+import com.gactiapi.com.model.Animation;
+import com.gactiapi.com.model.Compte;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 import java.util.Date;
-import java.util.List;
 
-@Entity
-public class Activite {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+public class CreateActiviteDto {
   private Integer idActivite;
-  @OneToOne
   private Animation animation;
   private Date dateAct;
   private Date dateAnnulationAct;
   private String etatActivite;
-  @ManyToOne
-  @JoinColumn(name = "idUser")
   private Compte encadrant;
 
-  @ManyToMany
-  private List<Compte> participants;
-
-  public Activite() {
+  public CreateActiviteDto() {
     this.etatActivite = "PREVUE";
   }
 
-  public Activite(Animation animation, Date dateAct, Date dateAnnulationAct, Compte encadrant) {
+  public CreateActiviteDto(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, Compte encadrant) {
+    this.idActivite = idActivite;
     this.animation = animation;
     this.dateAct = dateAct;
     this.etatActivite = "PREVUE";
@@ -34,7 +29,7 @@ public class Activite {
     this.encadrant = encadrant;
   }
 
-  public Activite(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
+  public CreateActiviteDto(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
     this.idActivite = idActivite;
     this.animation = animation;
     this.dateAct = dateAct;
@@ -43,8 +38,22 @@ public class Activite {
     this.encadrant = encadrant;
   }
 
-  public int getIdActivite() {
+
+
+  public Integer getIdActivite() {
     return idActivite;
+  }
+
+  public void setIdActivite(Integer idActivite) {
+    this.idActivite = idActivite;
+  }
+
+  public Animation getAnimation() {
+    return animation;
+  }
+
+  public void setAnimation(Animation animation) {
+    this.animation = animation;
   }
 
   public Date getDateAct() {
@@ -69,5 +78,13 @@ public class Activite {
 
   public void setEtatActivite(String etatActivite) {
     this.etatActivite = etatActivite;
+  }
+
+  public Compte getEncadrant() {
+    return encadrant;
+  }
+
+  public void setEncadrant(Compte encadrant) {
+    this.encadrant = encadrant;
   }
 }

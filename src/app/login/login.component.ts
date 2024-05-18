@@ -37,33 +37,25 @@ export class LoginComponent implements OnInit {
     this.errorMessage = null;
     this.username = this.form.get('username')?.value;
     this.password = this.form.get('password')?.value;
-    this.loginService.login({ username: this.username, password: this.password })
+    this.loginService.login({ idUser: this.username, mdp: this.password })
       .subscribe({
         next: (response) => {
-          if (response['COUNT(*)'] !== 1) {
-            this.errorMessage = 'Identifiant et/ou mot de passe incorrect';
-            if (targetDiv != null){
-              targetDiv.style.display = "none";
-            } 
-            return;
-          }else{
+          console.log(response);
+
             let currentUser: User = {
-              username: response.USER,
-              password: response.MDP,
-              firstName: response.NOMCOMPTE,
-              lastName: response.PRENOMCOMPTE,
-              registrationDate: response.DATEINSCRIP,
-              closingDate: response.DATEFERME,
-              profileType: response.TYPEPROFIL,
-              stayStartDate: response.DATEDEBSEJOUR,
-              stayEndDate: response.DATEFINSEJOUR,
-              birthDate: response.DATENAISCOMPTE,
-              mail: response.ADRMAILCOMPTE,
-              phone: response.NOTELCOMPTE
-              
-          }
+              username: response.idUser,
+              password: response.mdp,
+              firstName: response.prenomCompte,
+              lastName: response.nomCompte,
+              registrationDate: response.dateInscrip,
+              closingDate: response.dateFerme,
+              profileType: response.typeProfil,
+              stayStartDate: response.dateDebSejour,
+              stayEndDate: response.dateFinSejour,
+              mail: response.adrMailCompte,
+              phone: response.telCompte
+            }
           this.sessionService.createSession(currentUser);
-          }
           this.Router.navigateByUrl('home');
           
         },

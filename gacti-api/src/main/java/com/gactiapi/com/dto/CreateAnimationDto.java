@@ -1,13 +1,8 @@
-package com.gactiapi.com.model;
-
-import jakarta.persistence.*;
+package com.gactiapi.com.dto;
 
 import java.util.Date;
-import java.util.List;
 
-@Entity
-public class Animation {
-  @Id
+public class CreateAnimationDto {
   private String idAnimation;
   private String nomAnimation;
   private Date dateCreationAnimation;
@@ -18,11 +13,11 @@ public class Animation {
   private String typeAnimation;
   private String difficulteAnimation;
 
-  public Animation() {
+  public CreateAnimationDto() {
     this.dateCreationAnimation = new Date();
   }
 
-  public Animation(String idAnimation, String nomAnimation, Double dureeAnimation, Integer limiteAge, Integer nbPlaceAnimation, String descriptionAnimation, String typeAnimation, String difficulteAnimation) {
+  public CreateAnimationDto(String idAnimation, String nomAnimation, Double dureeAnimation, Integer limiteAge, Integer nbPlaceAnimation, String descriptionAnimation, String typeAnimation, String difficulteAnimation) {
     this.idAnimation = idAnimation;
     this.nomAnimation = nomAnimation;
     this.dateCreationAnimation = new Date();
