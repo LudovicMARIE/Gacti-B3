@@ -2,6 +2,7 @@ package com.gactiapi.com.controller;
 
 import com.gactiapi.com.dto.CreateCompteDto;
 import com.gactiapi.com.dto.LoginDto;
+import com.gactiapi.com.dto.UpdateCompteDto;
 import com.gactiapi.com.model.Compte;
 import com.gactiapi.com.service.CompteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,10 @@ public class CompteController {
   public ResponseEntity<Compte> createAccount(@RequestBody CreateCompteDto createCompteDto) {
     return compteService.createCompte(createCompteDto);
   }
+
+  @PutMapping("/{idUser}")
+  public ResponseEntity<Compte> updateAccount(@PathVariable String idUser, @RequestBody UpdateCompteDto updateCompteDto){
+    return compteService.updateCompte(idUser, updateCompteDto);
+  }
+
 }

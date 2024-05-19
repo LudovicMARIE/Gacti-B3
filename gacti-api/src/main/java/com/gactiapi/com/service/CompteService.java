@@ -2,13 +2,13 @@ package com.gactiapi.com.service;
 
 import com.gactiapi.com.dto.CreateCompteDto;
 import com.gactiapi.com.dto.LoginDto;
+import com.gactiapi.com.dto.UpdateCompteDto;
 import com.gactiapi.com.model.Compte;
 import com.gactiapi.com.repository.CompteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -54,7 +54,8 @@ public class CompteService {
                   createCompteDto.getDateDebSejour(),
                   createCompteDto.getDateFinSejour(),
                   createCompteDto.getAdrMailCompte(),
-                  createCompteDto.getTelCompte()
+                  createCompteDto.getTelCompte(),
+                  createCompteDto.getActiviteList()
           );
       }else{
           newCompte = new Compte(
@@ -65,12 +66,32 @@ public class CompteService {
                   createCompteDto.getDateDebSejour(),
                   createCompteDto.getDateFinSejour(),
                   createCompteDto.getAdrMailCompte(),
-                  createCompteDto.getTelCompte()
+                  createCompteDto.getTelCompte(),
+                  createCompteDto.getActiviteList()
           );
       }
       compteRepository.save(newCompte);
       return new ResponseEntity<>(newCompte, HttpStatus.CREATED);
 
+  }
+
+
+  public ResponseEntity<Compte> updateCompte(String idUser,UpdateCompteDto updateCompteDto){
+    Compte existingCompte = compteRepository.findByidUser(idUser)
+      .orElseThrow(() -> new RuntimeException("User does not exist."));
+
+    existingCompte.setNomCompte(updateCompteDto.getNomCompte());
+    existingCompte.setPrenomCompte(updateCompteDto.getPrenomCompte());
+    existingCompte.setDateFerme(updateCompteDto.getDateFerme());
+    existingCompte.setDateFerme(updateCompteDto.getDateFerme());
+    existingCompte.setTypeProfil(updateCompteDto.getTypeProfil());
+    existingCompte.setDateDebSejour(updateCompteDto.getDateDebSejour());
+    existingCompte.setDateFinSejour(updateCompteDto.getDateFinSejour());
+    existingCompte.setAdrMailCompte(updateCompteDto.getAdrMailCompte());
+    existingCompte.setTelCompte(updateCompteDto.getTelCompte());
+    existingCompte.setActivites(updateCompteDto.getActivites());
+    Compte updatedCompte = compteRepository.save(existingCompte);
+    return new ResponseEntity<>(updatedCompte, HttpStatus.OK);
   }
 
 

@@ -35,7 +35,7 @@ public class Compte {
     this.dateInscrip = new Date();
   }
 
-  public Compte(String idUser, String mdp, String nomCompte, String prenomCompte, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte) {
+  public Compte(String idUser, String mdp, String nomCompte, String prenomCompte, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte, List<Activite> activites) {
     this.idUser = idUser;
     this.mdp = mdp;
     this.nomCompte = nomCompte;
@@ -46,9 +46,10 @@ public class Compte {
     this.dateFinSejour = dateFinSejour;
     this.adrMailCompte = adrMailCompte;
     this.telCompte = telCompte;
+    this.activites = activites;
   }
 
-  public Compte(String idUser, String mdp, String nomCompte, String prenomCompte, String typeProfil, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte) {
+  public Compte(String idUser, String mdp, String nomCompte, String prenomCompte, String typeProfil, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte, List<Activite> activites) {
     this.idUser = idUser;
     this.mdp = mdp;
     this.nomCompte = nomCompte;
@@ -59,6 +60,7 @@ public class Compte {
     this.dateFinSejour = dateFinSejour;
     this.adrMailCompte = adrMailCompte;
     this.telCompte = telCompte;
+    this.activites = activites;
   }
 
   public String getIdUser() {

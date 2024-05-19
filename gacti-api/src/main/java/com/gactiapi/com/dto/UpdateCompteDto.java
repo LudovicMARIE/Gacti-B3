@@ -5,7 +5,7 @@ import com.gactiapi.com.model.Activite;
 import java.util.Date;
 import java.util.List;
 
-public class CreateCompteDto {
+public class UpdateCompteDto {
   private String idUser;
   private String mdp;
   private String nomCompte;
@@ -17,27 +17,9 @@ public class CreateCompteDto {
   private Date dateFinSejour;
   private String adrMailCompte;
   private String telCompte;
-  private List<Activite> activiteList;
+  private List<Activite> activites;
 
-
-  public CreateCompteDto(){
-  this.dateInscrip = new Date();
-  }
-
-  public CreateCompteDto(String idUser, String mdp, String nomCompte, String prenomCompte, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte, List<Activite> activiteList) {
-    this.idUser = idUser;
-    this.mdp = mdp;
-    this.nomCompte = nomCompte;
-    this.prenomCompte = prenomCompte;
-    this.dateInscrip = new Date();
-    this.dateDebSejour = dateDebSejour;
-    this.dateFinSejour = dateFinSejour;
-    this.adrMailCompte = adrMailCompte;
-    this.telCompte = telCompte;
-    this.activiteList = activiteList;
-  }
-
-  public CreateCompteDto(String idUser, String mdp, String nomCompte, String prenomCompte, String typeProfil, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte, List<Activite> activiteList) {
+  public UpdateCompteDto(String idUser, String mdp, String nomCompte, String prenomCompte, String typeProfil, Date dateDebSejour, Date dateFinSejour, String adrMailCompte, String telCompte, List<Activite> activiteList) {
     this.idUser = idUser;
     this.mdp = mdp;
     this.nomCompte = nomCompte;
@@ -48,7 +30,7 @@ public class CreateCompteDto {
     this.dateFinSejour = dateFinSejour;
     this.adrMailCompte = adrMailCompte;
     this.telCompte = telCompte;
-    this.activiteList = activiteList;
+    this.activites = activiteList;
   }
 
   public String getIdUser() {
@@ -135,11 +117,11 @@ public class CreateCompteDto {
     this.telCompte = telCompte;
   }
 
-  public List<Activite> getActiviteList() {
-    return activiteList;
+  public List<Activite> getActivites() {
+    return activites;
   }
 
-  public void setActiviteList(List<Activite> activiteList) {
-    this.activiteList = activiteList;
+  public void setActivites(List<Activite> activites) {
+    this.activites = activites;
   }
 }
