@@ -17,6 +17,8 @@ public class Animation {
   private String descriptionAnimation;
   private String typeAnimation;
   private String difficulteAnimation;
+  @OneToMany(mappedBy = "animation")
+  private List<Activite> activiteList;
 
   public Animation() {
     this.dateCreationAnimation = new Date();

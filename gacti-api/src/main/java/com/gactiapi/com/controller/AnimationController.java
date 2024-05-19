@@ -27,7 +27,11 @@ public class AnimationController {
 
   @PostMapping
   public ResponseEntity<Animation> createAnimation(@RequestBody CreateAnimationDto createAnimationDto){
-    return animationService.createAnimation(createAnimationDto);
+    try{
+      return animationService.createAnimation(createAnimationDto);
+    }catch (RuntimeException e){
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
 }

@@ -10,29 +10,29 @@ public class Activite {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer idActivite;
-  @OneToOne
+  @ManyToOne
+  @JoinColumn(name = "idAnimation")
   private Animation animation;
   private Date dateAct;
   private Date dateAnnulationAct;
   private String etatActivite;
   @ManyToOne
-  @JoinColumn(name = "idUser")
+  @JoinColumn(name = "encadrant_id")
   private Compte encadrant;
 
-  @ManyToMany
-  private List<Compte> participants;
 
   public Activite() {
     this.etatActivite = "PREVUE";
   }
 
-  public Activite(Animation animation, Date dateAct, Date dateAnnulationAct, Compte encadrant) {
+  public Activite(Animation animation, Date dateAct, Compte encadrant) {
     this.animation = animation;
     this.dateAct = dateAct;
     this.etatActivite = "PREVUE";
-    this.dateAnnulationAct = dateAnnulationAct;
+    this.dateAnnulationAct = null;
     this.encadrant = encadrant;
   }
+
 
   public Activite(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
     this.idActivite = idActivite;
@@ -45,6 +45,14 @@ public class Activite {
 
   public int getIdActivite() {
     return idActivite;
+  }
+
+  public Animation getAnimation() {
+    return animation;
+  }
+
+  public void setAnimation(Animation animation) {
+    this.animation = animation;
   }
 
   public Date getDateAct() {
@@ -70,4 +78,13 @@ public class Activite {
   public void setEtatActivite(String etatActivite) {
     this.etatActivite = etatActivite;
   }
+
+  public Compte getEncadrant() {
+    return encadrant;
+  }
+
+  public void setEncadrant(Compte encadrant) {
+    this.encadrant = encadrant;
+  }
+
 }

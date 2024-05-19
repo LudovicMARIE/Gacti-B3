@@ -43,18 +43,34 @@ public class CompteService {
       throw new RuntimeException("User already exists.");
     }
     String hashedMdp = hashPassword(createCompteDto.getMdp());
-    Compte newCompte = new Compte(
-      createCompteDto.getIdUser(),
-      hashedMdp,
-      createCompteDto.getNomCompte(),
-      createCompteDto.getPrenomCompte(),
-      createCompteDto.getDateDebSejour(),
-      createCompteDto.getDateFinSejour(),
-      createCompteDto.getAdrMailCompte(),
-      createCompteDto.getTelCompte()
-    );
-    compteRepository.save(newCompte);
-    return new ResponseEntity<>(newCompte, HttpStatus.CREATED);
+      Compte newCompte;
+      if(createCompteDto.getTypeProfil() != null){
+          newCompte = new Compte(
+                  createCompteDto.getIdUser(),
+                  hashedMdp,
+                  createCompteDto.getNomCompte(),
+                  createCompteDto.getPrenomCompte(),
+                  createCompteDto.getTypeProfil(),
+                  createCompteDto.getDateDebSejour(),
+                  createCompteDto.getDateFinSejour(),
+                  createCompteDto.getAdrMailCompte(),
+                  createCompteDto.getTelCompte()
+          );
+      }else{
+          newCompte = new Compte(
+                  createCompteDto.getIdUser(),
+                  hashedMdp,
+                  createCompteDto.getNomCompte(),
+                  createCompteDto.getPrenomCompte(),
+                  createCompteDto.getDateDebSejour(),
+                  createCompteDto.getDateFinSejour(),
+                  createCompteDto.getAdrMailCompte(),
+                  createCompteDto.getTelCompte()
+          );
+      }
+      compteRepository.save(newCompte);
+      return new ResponseEntity<>(newCompte, HttpStatus.CREATED);
+
   }
 
 

@@ -22,7 +22,11 @@ public class ActiviteService {
 
   public ResponseEntity<Activite> createActivite(CreateActiviteDto createActiviteDto){
     Activite newActivite = new Activite(
+      createActiviteDto.getAnimation(),
+      createActiviteDto.getDateAct(),
+      createActiviteDto.getEncadrant()
     );
+    activiteRepository.save(newActivite);
     return new ResponseEntity<>(newActivite, HttpStatus.CREATED);
   }
 }
