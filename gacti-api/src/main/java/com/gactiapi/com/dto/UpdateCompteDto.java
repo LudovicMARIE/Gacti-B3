@@ -24,7 +24,7 @@ public class UpdateCompteDto {
     this.mdp = mdp;
     this.nomCompte = nomCompte;
     this.prenomCompte = prenomCompte;
-    this.dateInscrip = new Date();
+    this.dateInscrip = this.getDateInscrip();
     this.typeProfil = typeProfil;
     this.dateDebSejour = dateDebSejour;
     this.dateFinSejour = dateFinSejour;

@@ -28,9 +28,6 @@ public class Compte {
   )
   private List<Activite> activites;
 
-  @OneToMany(mappedBy = "encadrant")
-  private List<Activite> activitesEncadrees;
-
   public Compte(){
     this.dateInscrip = new Date();
   }

@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface CompteRepository extends JpaRepository<Compte, Long> {
   Optional<Compte> findByidUser(String idUser);
 
-  public List<Compte> findAll();
+  public List<Compte> findAllByTypeProfil(String typeProfil);
 
 }

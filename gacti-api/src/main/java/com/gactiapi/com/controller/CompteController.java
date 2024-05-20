@@ -3,8 +3,10 @@ package com.gactiapi.com.controller;
 import com.gactiapi.com.dto.CreateCompteDto;
 import com.gactiapi.com.dto.LoginDto;
 import com.gactiapi.com.dto.UpdateCompteDto;
+import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Compte;
 import com.gactiapi.com.service.CompteService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +54,16 @@ public class CompteController {
   @PutMapping("/{idUser}")
   public ResponseEntity<Compte> updateAccount(@PathVariable String idUser, @RequestBody UpdateCompteDto updateCompteDto){
     return compteService.updateCompte(idUser, updateCompteDto);
+  }
+
+  @GetMapping("/{idUser}/activities")
+  public ResponseEntity<List<Activite>> getActivityList(@PathVariable String idUser){
+    return compteService.getActivitiesRegistered(idUser);
+  }
+
+  @GetMapping("/type/{typeProfil}")
+  public ResponseEntity<List<Compte>> getUsersByTypeProfil(@PathVariable String typeProfil){
+    return compteService.getAllCompteByType(typeProfil);
   }
 
 }

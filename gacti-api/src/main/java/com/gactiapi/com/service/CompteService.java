@@ -3,8 +3,10 @@ package com.gactiapi.com.service;
 import com.gactiapi.com.dto.CreateCompteDto;
 import com.gactiapi.com.dto.LoginDto;
 import com.gactiapi.com.dto.UpdateCompteDto;
+import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Compte;
 import com.gactiapi.com.repository.CompteRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,6 +94,20 @@ public class CompteService {
     existingCompte.setActivites(updateCompteDto.getActivites());
     Compte updatedCompte = compteRepository.save(existingCompte);
     return new ResponseEntity<>(updatedCompte, HttpStatus.OK);
+  }
+
+  public ResponseEntity<List<Activite>> getActivitiesRegistered(String idUser){
+    Compte compte = compteRepository.findByidUser(idUser)
+      .orElseThrow(() -> new RuntimeException("User does not exist."));
+    List<Activite> activityList = compte.getActivites();
+
+    return new ResponseEntity<>(activityList, HttpStatus.OK);
+
+  }
+
+  public ResponseEntity<List<Compte>> getAllCompteByType(String typeprofil){
+    List<Compte> Comptes = compteRepository.findAllByTypeProfil(typeprofil);
+    return new ResponseEntity<>(Comptes, HttpStatus.OK);
   }
 
 
