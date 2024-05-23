@@ -21,6 +21,11 @@ public class ActiviteService {
     return new ResponseEntity<>(activiteRepository.findAll(), HttpStatus.OK);
   }
 
+  public ResponseEntity<Activite> findActiviteById(int idActivite){
+    Activite activiteFound = activiteRepository.findByidActivite(idActivite).orElseThrow(() -> new RuntimeException("Activity does not exist."));
+    return new ResponseEntity<>(activiteFound,HttpStatus.OK);
+  }
+
   public ResponseEntity<Activite> createActivite(CreateActiviteDto createActiviteDto){
     Activite newActivite = new Activite(
       createActiviteDto.getAnimation(),
@@ -34,7 +39,7 @@ public class ActiviteService {
   public ResponseEntity<Activite> updateActivite(int idActivite,UpdateActiviteDto updateActiviteDto){
     Activite existingActivite = activiteRepository.findByidActivite(idActivite)
       .orElseThrow(() -> new RuntimeException("Activity does not exist."));
-
+    existingActivite.setIdActivite(updateActiviteDto.getIdActivite());
     existingActivite.setAnimation(updateActiviteDto.getAnimation());
     existingActivite.setDateAct(updateActiviteDto.getDateAct());
     existingActivite.setEtatActivite(updateActiviteDto.getEtatActivite());
@@ -42,6 +47,11 @@ public class ActiviteService {
     existingActivite.setEncadrant(updateActiviteDto.getEncadrant());
     Activite updatedActivite = activiteRepository.save(existingActivite);
     return new ResponseEntity<>(updatedActivite, HttpStatus.OK);
+  }
+
+  public String deleteActivite(int idActivite){
+      activiteRepository.deleteById(idActivite);
+      return "Activity removed : " +idActivite;
   }
 
 }

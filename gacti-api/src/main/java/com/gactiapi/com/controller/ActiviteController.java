@@ -28,6 +28,15 @@ public class ActiviteController {
     }
   }
 
+  @GetMapping("/{idActivite}")
+  public ResponseEntity<Activite> findActiviteById(@PathVariable int idActivite){
+    try {
+      return activiteService.findActiviteById(idActivite);
+    }catch(RuntimeException e){
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   @PostMapping
   public ResponseEntity<Activite> createActivite(@RequestBody CreateActiviteDto createActiviteDto){
     try{
@@ -38,9 +47,14 @@ public class ActiviteController {
   }
 
 
-  @PutMapping("/{idActivity}")
+  @PutMapping("/{idActivite}")
   public ResponseEntity<Activite> updateActivite(@PathVariable int idActivite, @RequestBody UpdateActiviteDto updateActiviteDto){
     return activiteService.updateActivite(idActivite, updateActiviteDto);
+  }
+
+  @DeleteMapping("/{idActivite}")
+  public String deleteActivite(@PathVariable int idActivite){
+    return activiteService.deleteActivite(idActivite);
   }
 
 }

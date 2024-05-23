@@ -40,6 +40,11 @@ public class CompteService {
 
   }
 
+  public ResponseEntity<Compte> findCompteById(String idCompte){
+    Compte user = compteRepository.findByidUser(idCompte).orElseThrow(() -> new RuntimeException());
+    return new ResponseEntity<>(user, HttpStatus.OK);
+  }
+
   public ResponseEntity<Compte> createCompte(CreateCompteDto createCompteDto){
     if(compteRepository.findByidUser(createCompteDto.getIdUser()).isPresent()){
       throw new RuntimeException("User already exists.");

@@ -13,14 +13,15 @@ public class UpdateActiviteDto {
   private String etatActivite;
   private Compte encadrant;
 
-  public UpdateActiviteDto(Animation animation, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
-    this.idActivite = getIdActivite();
+  public UpdateActiviteDto(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
+    this.idActivite = idActivite;
     this.animation = animation;
     this.dateAct = dateAct;
     this.dateAnnulationAct = dateAnnulationAct;
     this.etatActivite = etatActivite;
     this.encadrant = encadrant;
   }
+
 
   public Integer getIdActivite() {
     return idActivite;

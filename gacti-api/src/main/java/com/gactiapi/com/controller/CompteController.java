@@ -29,6 +29,15 @@ public class CompteController {
     }
   }
 
+  @GetMapping("/{idUser}")
+  public ResponseEntity<Compte> findCompteById(@PathVariable String idUser){
+    try{
+      return compteService.findCompteById(idUser);
+    }catch(RuntimeException e){
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   @PostMapping("/login")
   public ResponseEntity<Compte> login(@RequestBody LoginDto loginDto) {
     try {

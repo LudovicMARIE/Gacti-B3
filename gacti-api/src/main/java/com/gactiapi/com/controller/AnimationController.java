@@ -1,6 +1,7 @@
 package com.gactiapi.com.controller;
 
 import com.gactiapi.com.dto.CreateAnimationDto;
+import com.gactiapi.com.dto.UpdateAnimationDto;
 import com.gactiapi.com.model.Animation;
 import com.gactiapi.com.service.AnimationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,15 @@ public class AnimationController {
     }
   }
 
+  @GetMapping("/{idAnimation}")
+  public ResponseEntity<Animation> findAnimationById(@PathVariable String animation){
+    try{
+      return animationService.findAnimationById(animation);
+    }catch(RuntimeException e){
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   @PostMapping
   public ResponseEntity<Animation> createAnimation(@RequestBody CreateAnimationDto createAnimationDto){
     try{
@@ -32,6 +42,11 @@ public class AnimationController {
     }catch (RuntimeException e){
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  @PutMapping("/{idAnimation}")
+  public ResponseEntity<Animation> updateAnimation(@PathVariable String idAnimation, @RequestBody UpdateAnimationDto updateAnimationDto){
+      return animationService.updateAnimation(idAnimation,updateAnimationDto);
   }
 
 }

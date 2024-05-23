@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface ActiviteRepository extends JpaRepository<Activite, Integer> {
   Optional<Activite> findByidActivite(int idActivite);
 
+  void DeleteByidActivite(int idActivite);
+
 
 }

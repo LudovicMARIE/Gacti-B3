@@ -47,6 +47,10 @@ public class Activite {
     return idActivite;
   }
 
+  public void setIdActivite(Integer idActivite) {
+    this.idActivite = idActivite;
+  }
+
   public Animation getAnimation() {
     return animation;
   }
