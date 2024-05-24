@@ -49,4 +49,11 @@ public class AnimationController {
       return animationService.updateAnimation(idAnimation,updateAnimationDto);
   }
 
+  @DeleteMapping("/{idAnimation}")
+  public ResponseEntity<HttpStatus> deleteAnimation(@PathVariable String idAnimation){
+    animationService.deleteAnimation(idAnimation);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+
 }

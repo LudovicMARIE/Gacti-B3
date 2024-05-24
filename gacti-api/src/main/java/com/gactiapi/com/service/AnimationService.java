@@ -62,5 +62,10 @@ public class AnimationService {
     return new ResponseEntity<>(animation, HttpStatus.OK);
   }
 
+  public ResponseEntity<HttpStatus> deleteAnimation(String idAnimation){
+    animationRepository.deleteById(idAnimation);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
 
 }

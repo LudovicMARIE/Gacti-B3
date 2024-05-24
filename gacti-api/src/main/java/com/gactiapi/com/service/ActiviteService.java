@@ -49,9 +49,9 @@ public class ActiviteService {
     return new ResponseEntity<>(updatedActivite, HttpStatus.OK);
   }
 
-  public String deleteActivite(int idActivite){
+  public ResponseEntity<HttpStatus> deleteActivite(int idActivite){
       activiteRepository.deleteById(idActivite);
-      return "Activity removed : " +idActivite;
+      return new ResponseEntity<>(HttpStatus.OK);
   }
 
 }

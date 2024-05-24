@@ -132,6 +132,11 @@ public class CompteService {
     }
   }
 
+  public ResponseEntity<HttpStatus> deleteCompte(Long idCompte){
+    compteRepository.deleteById(idCompte);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
 
 }
 

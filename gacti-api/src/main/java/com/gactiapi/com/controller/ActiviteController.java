@@ -53,7 +53,7 @@ public class ActiviteController {
   }
 
   @DeleteMapping("/{idActivite}")
-  public String deleteActivite(@PathVariable int idActivite){
+  public ResponseEntity<HttpStatus> deleteActivite(@PathVariable int idActivite){
     return activiteService.deleteActivite(idActivite);
   }
 

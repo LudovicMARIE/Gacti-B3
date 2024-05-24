@@ -75,4 +75,9 @@ public class CompteController {
     return compteService.getAllCompteByType(typeProfil);
   }
 
+  @DeleteMapping("/{idUser}")
+  public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long idUser){
+    return compteService.deleteCompte(idUser);
+  }
+
 }
