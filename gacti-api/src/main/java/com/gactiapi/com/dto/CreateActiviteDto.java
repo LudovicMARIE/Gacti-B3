@@ -11,6 +11,7 @@ import java.util.Date;
 public class CreateActiviteDto {
   private Integer idActivite;
   private Animation animation;
+  private Integer prixAct;
   private Date dateAct;
   private Date dateAnnulationAct;
   private String etatActivite;
@@ -20,18 +21,20 @@ public class CreateActiviteDto {
     this.etatActivite = "PREVUE";
   }
 
-  public CreateActiviteDto(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, Compte encadrant) {
+  public CreateActiviteDto(Integer idActivite, Animation animation, Integer prixAct, Date dateAct, Date dateAnnulationAct, Compte encadrant) {
     this.idActivite = idActivite;
     this.animation = animation;
+    this.prixAct = prixAct;
     this.dateAct = dateAct;
     this.etatActivite = "PREVUE";
     this.dateAnnulationAct = dateAnnulationAct;
     this.encadrant = encadrant;
   }
 
-  public CreateActiviteDto(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
+  public CreateActiviteDto(Integer idActivite, Animation animation, Integer prixAct, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
     this.idActivite = idActivite;
     this.animation = animation;
+    this.prixAct = prixAct;
     this.dateAct = dateAct;
     this.dateAnnulationAct = dateAnnulationAct;
     this.etatActivite = etatActivite;
@@ -54,6 +57,14 @@ public class CreateActiviteDto {
 
   public void setAnimation(Animation animation) {
     this.animation = animation;
+  }
+
+  public Integer getPrixAct() {
+    return prixAct;
+  }
+
+  public void setPrixAct(Integer prixAct) {
+    this.prixAct = prixAct;
   }
 
   public Date getDateAct() {

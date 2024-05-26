@@ -8,14 +8,16 @@ import java.util.Date;
 public class UpdateActiviteDto {
   private Integer idActivite;
   private Animation animation;
+  private Integer prixAct;
   private Date dateAct;
   private Date dateAnnulationAct;
   private String etatActivite;
   private Compte encadrant;
 
-  public UpdateActiviteDto(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
+  public UpdateActiviteDto(Integer idActivite, Animation animation, Integer prixAct, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
     this.idActivite = idActivite;
     this.animation = animation;
+    this.prixAct = prixAct;
     this.dateAct = dateAct;
     this.dateAnnulationAct = dateAnnulationAct;
     this.etatActivite = etatActivite;
@@ -37,6 +39,14 @@ public class UpdateActiviteDto {
 
   public void setAnimation(Animation animation) {
     this.animation = animation;
+  }
+
+  public Integer getPrixAct() {
+    return prixAct;
+  }
+
+  public void setPrixAct(Integer prixAct) {
+    this.prixAct = prixAct;
   }
 
   public Date getDateAct() {

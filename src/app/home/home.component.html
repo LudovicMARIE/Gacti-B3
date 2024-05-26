@@ -3,7 +3,7 @@
 <div class="main">
   <div class="hello" *ngIf="page == 'default'">
     <span class="hello-print">
-      Bonjour {{ User.firstName}} {{User.lastName}}
+      Bonjour {{ User.prenomCompte}} {{User.nomCompte}}
     </span>
   </div>
   <div class="panel">
@@ -17,31 +17,31 @@
           <table>
             <tr>
               <td>Prénom:</td>
-              <td>{{ User.firstName }}</td>
+              <td>{{ User.prenomCompte }}</td>
             </tr>
             <tr>
               <td>Nom:</td>
-              <td>{{ User.lastName }}</td>
+              <td>{{ User.nomCompte }}</td>
             </tr>
             <tr>
               <td>Date d'inscription:</td>
-              <td>{{ User.registrationDate }}</td>
+              <td>{{ User.dateInscrip }}</td>
             </tr>
             <tr>
               <td>Adresse mail:</td>
-              <td>{{ User.mail }}</td>
+              <td>{{ User.adrMailCompte }}</td>
             </tr>
             <tr>
               <td>Numéro de téléphone:</td>
-              <td>{{ User.phone }}</td>
+              <td>{{ User.telCompte }}</td>
             </tr>
             <tr>
               <td>Début du séjour:</td>
-              <td>{{ User.stayStartDate }}</td>
+              <td>{{ User.dateDebSejour }}</td>
             </tr>
             <tr>
               <td>Fin du séjour:</td>
-              <td>{{ User.stayEndDate }}</td>
+              <td>{{ User.dateFinSejour }}</td>
             </tr>
           </table>
       </div>
@@ -52,29 +52,22 @@
             <option value="" selected disabled hidden>Choisissez un type d'activité</option>
             <option value="all">Toutes les activités</option>
             <option [value]="animType.codeTypeAnim" *ngFor="let animType of animationTypeList">{{animType.nomTypeAnim}}</option>
-            <!--<?php
-            $sql2="SELECT CODEANIM,NOMANIM FROM animation";
-            foreach ($con->query($sql2) as $row) {
-                echo "<option value=$row[CODEANIM]>$row[NOMANIM]</option>";
-                }
-            ?>-->
           </select>
         </div>
         <div class="afficher_activites" id="afficher_activites">
           <div 
           class='card'
           *ngFor="let activity of activityList" 
-          [ngClass]="{'cardAnnule': activity.dateAnnuleAct != null}"
+          [ngClass]="{'cardAnnule': activity.dateAnnulationAct != null}"
           >
-          <!-- [ngStyle]="{'background-color': (activity.dateAnnuleAct == null) ? '#283618' : '#E55812'}" -->
-            <div class='titreCard'>{{ activity.nomAnim }}</div>
+            <div class='titreCard'>{{ activity.animation.nomAnimation }}</div>
             <div class='actCard' method='post' action=''>
             Date : {{activity.dateAct}}<br/>
             Prix : {{activity.prixAct}}€<br/>
-            <div *ngIf="activity.dateAnnuleAct != null">Annulée le {{activity.dateAnnuleAct}}</div>
+            <div *ngIf="activity.dateAnnulationAct != null">Annulée le {{activity.dateAnnulationAct}}</div>
             <div class='buttonAct'>
-            <button type='button' (click)="registerActivity(activity)" *ngIf="User.profileType == '2' && activity.dateAnnuleAct == null" class='btn_inscription'>S'inscrire</button>
-            <button type='button' (click)="deleteActivity(activity)" *ngIf="User.profileType == '0'" class='btn_inscription'>Supprimer</button>
+            <button type='button' (click)="registerActivity(activity)" *ngIf="User.typeProfil == '2' && activity.dateAnnulationAct == null" class='btn_inscription'>S'inscrire</button>
+            <button type='button' (click)="deleteActivity(activity)" *ngIf="User.typeProfil == '0'" class='btn_inscription'>Supprimer</button>
             </div>
             </div>
           </div>
@@ -83,14 +76,14 @@
 
        <div class="activites_inscrites" id="activites_inscrites" *ngIf="page == 'activitiesRegistered'">
         <div class="afficher_activites">
-          <div class='card' *ngFor="let registration of activityRegisteredList">
-          <div class='titreCard'>{{registration.activity.nomAnim}}</div>
+          <div class='card' *ngFor="let registration of User.activites">
+          <div class='titreCard'>{{registration.animation.nomAnimation}}</div>
           <div class='actCard'>
-          Date : {{registration.activity.dateAct}}<br/>
-          Prix : {{registration.activity.prixAct}}€<br/>
+          Date : {{registration.dateAct}}<br/>
+          Prix : {{registration.prixAct}}€<br/>
           <div class='buttonAct'>
           Inscrit
-          <button type='button' name='action' (click)="deleteRegistration(registration.noRegistration)" class='btn_inscription'>Se désinscrire</button>
+          <button type='button' name='action' (click)="deleteRegistration(registration.idActivite)" class='btn_inscription'>Se désinscrire</button>
           </div>
           </div>
           </div>

@@ -29,6 +29,7 @@ public class ActiviteService {
   public ResponseEntity<Activite> createActivite(CreateActiviteDto createActiviteDto){
     Activite newActivite = new Activite(
       createActiviteDto.getAnimation(),
+      createActiviteDto.getPrixAct(),
       createActiviteDto.getDateAct(),
       createActiviteDto.getEncadrant()
     );
@@ -41,6 +42,7 @@ public class ActiviteService {
       .orElseThrow(() -> new RuntimeException("Activity does not exist."));
     existingActivite.setIdActivite(updateActiviteDto.getIdActivite());
     existingActivite.setAnimation(updateActiviteDto.getAnimation());
+    existingActivite.setPrixAct(updateActiviteDto.getPrixAct());
     existingActivite.setDateAct(updateActiviteDto.getDateAct());
     existingActivite.setEtatActivite(updateActiviteDto.getEtatActivite());
     existingActivite.setDateAnnulationAct(updateActiviteDto.getDateAnnulationAct());

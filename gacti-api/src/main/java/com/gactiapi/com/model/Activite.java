@@ -13,6 +13,7 @@ public class Activite {
   @ManyToOne
   @JoinColumn(name = "idAnimation")
   private Animation animation;
+  private Integer prixAct;
   private Date dateAct;
   private Date dateAnnulationAct;
   private String etatActivite;
@@ -25,8 +26,9 @@ public class Activite {
     this.etatActivite = "PREVUE";
   }
 
-  public Activite(Animation animation, Date dateAct, Compte encadrant) {
+  public Activite(Animation animation, Integer prixAct, Date dateAct, Compte encadrant) {
     this.animation = animation;
+    this.prixAct = prixAct;
     this.dateAct = dateAct;
     this.etatActivite = "PREVUE";
     this.dateAnnulationAct = null;
@@ -34,9 +36,10 @@ public class Activite {
   }
 
 
-  public Activite(Integer idActivite, Animation animation, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
+  public Activite(Integer idActivite, Animation animation,Integer prixAct ,Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
     this.idActivite = idActivite;
     this.animation = animation;
+    this.prixAct = prixAct;
     this.dateAct = dateAct;
     this.dateAnnulationAct = dateAnnulationAct;
     this.etatActivite = etatActivite;
@@ -57,6 +60,14 @@ public class Activite {
 
   public void setAnimation(Animation animation) {
     this.animation = animation;
+  }
+
+  public Integer getPrixAct() {
+    return prixAct;
+  }
+
+  public void setPrixAct(Integer prixAct) {
+    this.prixAct = prixAct;
   }
 
   public Date getDateAct() {

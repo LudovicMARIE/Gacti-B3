@@ -1,13 +1,16 @@
+import { Activity } from "./activity";
+
 export interface User {
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    registrationDate: Date;
-    closingDate: Date;
-    profileType: string;
-    stayStartDate: Date;
-    stayEndDate: Date;
-    mail: string;
-    phone: string;
+  idUser: String;
+  mdp: String;
+  nomCompte: String;
+  prenomCompte: String;
+  dateInscrip: Date;
+  dateFerme: Date;
+  typeProfil: String;
+  dateDebSejour: Date;
+  dateFinSejour: Date;
+  adrMailCompte: String;
+  telCompte: String;
+  activites: Activity[];
 }

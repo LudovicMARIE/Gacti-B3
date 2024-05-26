@@ -1,40 +1,23 @@
-export interface Activity {
-    codeAnim: string;
-    dateAct: Date;
-    codeEtatAct: string;
-    hrRdvAct: Date;
-    prixAct: number;
-    hrDebutAct?: Date;
-    hrFinAct?: Date;
-    dateAnnuleAct?: Date;
-    nomResp: string;
-    prenomResp: string;
-    nomAnim: string;
-}
+import { User } from "./user";
 
-export interface AnimationType {
-    codeTypeAnim: string;
-    nomTypeAnim: string;
+export interface Activity {
+  idActivite: number;
+  animation: Animation;
+  prixAct: number;
+  dateAct: Date;
+  dateAnnulationAct: Date;
+  etatActivite: String;
+  encadrant: User;
 }
 
 export interface Animation {
-    codeAnim: string;
-    codeTypeAnim: string;
-    nomAnim: string;
-    dateCreationAnim: string;
-    dateValiditeAnim: string;
-    dureeAnim: number;
+    idAnimation: String;
+    nomAnimation: String;
+    dateCreationAnimation: Date;
+    dureeAnimation: number;
     limiteAge: number;
-    tarifAnim: number;
-    nbPlaceAnim: number;
-    descriptAnim: string;
-    commentAnim: string;
-    difficulteAnim: string;
-
-}
-
-export interface Registration{
-    noRegistration: number;
-    activity: Activity;
-    registrationDate: Date;
+    nbPlaceAnimation: number;
+    descriptionAnimation: String;
+    typeAnimation: String;
+    difficulteAnimation: String;
 }
