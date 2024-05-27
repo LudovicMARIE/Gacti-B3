@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { Activity } from '../_interfaces/activity';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,35 @@ export class ActivityService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
+
+  getCompteActivite(username: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/${username}/activities`);
+  }
+
+  getAllActivites(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/activities`);
+  }
+
+  getActiviteById(codeanim: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/activities/${codeanim}`);
+  }
+
+  createActivite(data: Activity): Observable<any> {
+    return this.http.post(`${this.apiUrl}/activities`, data);
+  }
+
+  updateActivite(codeActivite: number, data: Activity): Observable<any> {
+    return this.http.put(`${this.apiUrl}/activities/${codeActivite}`, data);
+  }
+
+  deleteActivite(codeanim: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/activities/${codeanim}`);
+  }
+
+
+
+
+  //Old code
 
   getActivities(): Observable<any> {
     return this.http.get(`${this.apiUrl}/activities`);
