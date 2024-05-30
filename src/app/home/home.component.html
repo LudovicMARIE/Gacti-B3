@@ -51,7 +51,7 @@
           <select #selectAnimType name="act" (input)="onFilterChangeActivities(selectAnimType.value)">
             <option value="" selected disabled hidden>Choisissez un type d'activité</option>
             <option value="all">Toutes les activités</option>
-            <option [value]="animType.codeTypeAnim" *ngFor="let animType of animationTypeList">{{animType.nomTypeAnim}}</option>
+            <option [value]="animType" *ngFor="let animType of animationTypeList">{{animType}}</option>
           </select>
         </div>
         <div class="afficher_activites" id="afficher_activites">

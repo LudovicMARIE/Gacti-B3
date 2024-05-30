@@ -6,10 +6,12 @@ import com.gactiapi.com.dto.UpdateCompteDto;
 import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Compte;
 import com.gactiapi.com.repository.CompteRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -19,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Service
-public class CompteService {
+public class CompteService implements UserDetailsService {
   @Autowired
   private CompteRepository compteRepository;
 
@@ -28,12 +30,12 @@ public class CompteService {
   }
 
   public ResponseEntity<Compte> login(LoginDto loginDto) {
-    Compte user = compteRepository.findByidUser(loginDto.getIdUser()).orElse(null);
+    Compte user = compteRepository.findByadrMailCompte(loginDto.getMail()).orElse(null);
     if(user == null) {
       throw new RuntimeException("User does not exist.");
     }
     String hashedPassword = hashPassword(loginDto.getMdp());
-    if(!user.getMdp().equals(hashedPassword)){
+    if(!user.getPassword().equals(hashedPassword)){
       throw new RuntimeException("Password mismatch.");
     }
     return new ResponseEntity<>(user, HttpStatus.OK);
@@ -48,6 +50,9 @@ public class CompteService {
   public ResponseEntity<Compte> createCompte(CreateCompteDto createCompteDto){
     if(compteRepository.findByidUser(createCompteDto.getIdUser()).isPresent()){
       throw new RuntimeException("User already exists.");
+    }
+    if(compteRepository.findByadrMailCompte(createCompteDto.getAdrMailCompte()).isPresent()){
+      throw new RuntimeException("Email already used.");
     }
     String hashedMdp = hashPassword(createCompteDto.getMdp());
       Compte newCompte;
@@ -138,6 +143,10 @@ public class CompteService {
   }
 
 
+  @Override
+  public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+    return compteRepository.findByadrMailCompte(mail).orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable"));
+  }
 }
 
 

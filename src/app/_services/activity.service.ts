@@ -41,33 +41,33 @@ export class ActivityService {
 
   //Old code
 
-  getActivities(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/activities`);
-  }
+  // getActivities(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/activities`);
+  // }
 
-  getActivityByAnimType(codeanim: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/activities/${codeanim}`);
-  }
+  // getActivityByAnimType(codeanim: string): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/activities/${codeanim}`);
+  // }
 
-  registerActivity(credentials: { username: string; codeanim: string; dateact: string; }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register-activity`,credentials);
-  }
+  // registerActivity(credentials: { username: string; codeanim: string; dateact: string; }): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/register-activity`,credentials);
+  // }
 
-  getActivityType(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/animation-types`);
-  }
+  // getActivityType(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/animation-types`);
+  // }
 
-  getActivitiesRegisteredByUser(username: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/activities/registered/${username}`);
-  }
+  // getActivitiesRegisteredByUser(username: string): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/activities/registered/${username}`);
+  // }
 
-  deleteRegistration(registrationNumber: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/activities/registered/${registrationNumber}`);
-  }
+  // deleteRegistration(registrationNumber: number): Observable<any> {
+  //   return this.http.delete(`${this.apiUrl}/activities/registered/${registrationNumber}`);
+  // }
 
-  deleteActivity(codeAnim: string, dateAct: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete-activity/${codeAnim}/${dateAct}`);
-  }
+  // deleteActivity(codeAnim: string, dateAct: string): Observable<any> {
+  //   return this.http.delete(`${this.apiUrl}/delete-activity/${codeAnim}/${dateAct}`);
+  // }
 
 
 }

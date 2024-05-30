@@ -1,16 +1,16 @@
 import { Activity } from "./activity";
 
 export interface User {
-  idUser: String;
-  mdp: String;
-  nomCompte: String;
-  prenomCompte: String;
+  idUser: string;
+  mdp: string;
+  nomCompte: string;
+  prenomCompte: string;
   dateInscrip: Date;
   dateFerme: Date;
-  typeProfil: String;
+  typeProfil: string;
   dateDebSejour: Date;
   dateFinSejour: Date;
-  adrMailCompte: String;
-  telCompte: String;
+  adrMailCompte: string;
+  telCompte: string;
   activites: Activity[];
 }

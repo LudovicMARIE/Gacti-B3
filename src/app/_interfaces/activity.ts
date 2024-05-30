@@ -6,18 +6,18 @@ export interface Activity {
   prixAct: number;
   dateAct: Date;
   dateAnnulationAct: Date;
-  etatActivite: String;
+  etatActivite: string;
   encadrant: User;
 }
 
 export interface Animation {
-    idAnimation: String;
-    nomAnimation: String;
+    idAnimation: string;
+    nomAnimation: string;
     dateCreationAnimation: Date;
     dureeAnimation: number;
     limiteAge: number;
     nbPlaceAnimation: number;
-    descriptionAnimation: String;
-    typeAnimation: String;
-    difficulteAnimation: String;
+    descriptionAnimation: string;
+    typeAnimation: string;
+    difficulteAnimation: string;
 }

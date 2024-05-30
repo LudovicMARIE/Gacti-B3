@@ -43,8 +43,6 @@ public class CompteController {
     try {
       return compteService.login(loginDto);
     } catch (RuntimeException e) {
-      System.out.println(e.getMessage());
-
       if (e.getMessage().equals("Password mismatch.")) {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
       }

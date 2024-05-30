@@ -1,15 +1,15 @@
 package com.gactiapi.com.dto;
 
 public class LoginDto {
-  private String idUser;
+  private String mail;
   private String mdp;
 
-  public String getIdUser() {
-    return idUser;
+  public String getMail() {
+    return mail;
   }
 
-  public void setIdUser(String idUser) {
-    this.idUser = idUser;
+  public void setMail(String mail) {
+    this.mail = mail;
   }
 
   public String getMdp() {

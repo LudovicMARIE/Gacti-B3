@@ -13,4 +13,6 @@ public interface CompteRepository extends JpaRepository<Compte, Long> {
 
   public List<Compte> findAllByTypeProfil(String typeProfil);
 
+  Optional<Compte> findByadrMailCompte(String email);
+
 }

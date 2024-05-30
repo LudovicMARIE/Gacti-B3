@@ -1,12 +1,15 @@
 package com.gactiapi.com.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Compte {
+public class Compte implements UserDetails {
   @Id
   private String idUser;
   private String mdp;
@@ -58,14 +61,6 @@ public class Compte {
     this.adrMailCompte = adrMailCompte;
     this.telCompte = telCompte;
     this.activites = activites;
-  }
-
-  public String getIdUser() {
-    return idUser;
-  }
-
-  public String getMdp() {
-    return mdp;
   }
 
   public String getNomCompte() {
@@ -148,4 +143,38 @@ public class Compte {
     this.activites = activites;
   }
 
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return null;
+  }
+
+  @Override
+  public String getPassword() {
+    return mdp;
+  }
+
+  @Override
+  public String getUsername() {
+    return adrMailCompte;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return false;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return false;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return false;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return false;
+  }
 }

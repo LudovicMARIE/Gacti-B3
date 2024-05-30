@@ -37,23 +37,24 @@ export class LoginComponent implements OnInit {
     this.errorMessage = null;
     this.username = this.form.get('username')?.value;
     this.password = this.form.get('password')?.value;
-    this.loginService.login({ idUser: this.username, mdp: this.password })
+    this.loginService.login({ mail: this.username, mdp: this.password })
       .subscribe({
         next: (response) => {
           console.log(response);
 
             let currentUser: User = {
-              username: response.idUser,
-              password: response.mdp,
-              firstName: response.prenomCompte,
-              lastName: response.nomCompte,
-              registrationDate: response.dateInscrip,
-              closingDate: response.dateFerme,
-              profileType: response.typeProfil,
-              stayStartDate: response.dateDebSejour,
-              stayEndDate: response.dateFinSejour,
-              mail: response.adrMailCompte,
-              phone: response.telCompte
+              idUser: response.username,
+              mdp: response.password,
+              nomCompte: response.nomCompte,
+              prenomCompte: response.prenomCompte,
+              dateInscrip: response.dateInscrip,
+              dateFerme: response.dateFerme,
+              typeProfil: response.typeProfil,
+              dateDebSejour: response.dateDebSejour,
+              dateFinSejour: response.dateFinSejour,
+              adrMailCompte: response.adrMailCompte,
+              telCompte: response.telCompte,
+              activites: response.activites,
             }
           this.sessionService.createSession(currentUser);
           this.Router.navigateByUrl('home');
