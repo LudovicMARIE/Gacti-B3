@@ -68,6 +68,16 @@ public class CompteController {
     return compteService.getActivitiesRegistered(idUser);
   }
 
+  @PostMapping("/{idUser}/activities/{idActivite}")
+  public ResponseEntity<HttpStatus> registerActivity(@PathVariable String idUser, @PathVariable int idActivite){
+    return compteService.registerActivity(idUser, idActivite);
+  }
+
+  @PostMapping("/{idUser}/activities/delete/{idActivite}")
+  public ResponseEntity<HttpStatus> unregisterActivity(@PathVariable String idUser, @PathVariable int idActivite){
+    return compteService.unregisterActivity(idUser, idActivite);
+  }
+
   @GetMapping("/type/{typeProfil}")
   public ResponseEntity<List<Compte>> getUsersByTypeProfil(@PathVariable String typeProfil){
     return compteService.getAllCompteByType(typeProfil);

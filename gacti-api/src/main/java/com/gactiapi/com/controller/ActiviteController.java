@@ -37,6 +37,11 @@ public class ActiviteController {
     }
   }
 
+  @GetMapping("/type/{typeAnimation}")
+  public ResponseEntity<List<Activite>> findAllByAnimType(@PathVariable String typeAnimation){
+    return activiteService.findAllByType(typeAnimation);
+  }
+
   @PostMapping
   public ResponseEntity<Activite> createActivite(@RequestBody CreateActiviteDto createActiviteDto){
     try{

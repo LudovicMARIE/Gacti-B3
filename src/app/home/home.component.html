@@ -25,7 +25,7 @@
             </tr>
             <tr>
               <td>Date d'inscription:</td>
-              <td>{{ User.dateInscrip }}</td>
+              <td>{{ User.dateInscrip | date: " dd/MM/yyyy"}}</td>
             </tr>
             <tr>
               <td>Adresse mail:</td>
@@ -37,11 +37,11 @@
             </tr>
             <tr *ngIf="User.dateDebSejour != null">
               <td>Début du séjour:</td>
-              <td>{{ User.dateDebSejour }}</td>
+              <td>{{ User.dateDebSejour | date: " dd/MM/yyyy"}}</td>
             </tr>
             <tr *ngIf="User.dateFinSejour != null" >
               <td>Fin du séjour:</td>
-              <td>{{ User.dateFinSejour }}</td>
+              <td>{{ User.dateFinSejour | date: " dd/MM/yyyy"}}</td>
             </tr>
           </table>
       </div>
@@ -62,12 +62,12 @@
           >
             <div class='titreCard'>{{ activity.animation.nomAnimation }}</div>
             <div class='actCard' method='post' action=''>
-            Date : {{activity.dateAct}}<br/>
+            Date : {{activity.dateAct | date: " dd/MM/yyyy"}}<br/>
             Prix : {{activity.prixAct}}€<br/>
-            <div *ngIf="activity.dateAnnulationAct != null">Annulée le {{activity.dateAnnulationAct}}</div>
+            <div *ngIf="activity.dateAnnulationAct != null">Annulée le {{activity.dateAnnulationAct | date: " dd/MM/yyyy"}}</div>
             <div class='buttonAct'>
-            <button type='button' (click)="registerActivity(activity)" *ngIf="User.typeProfil == '2' && activity.dateAnnulationAct == null" class='btn_inscription'>S'inscrire</button>
-            <button type='button' (click)="deleteActivity(activity)" *ngIf="User.typeProfil == '0'" class='btn_inscription'>Supprimer</button>
+            <button type='button' (click)="registerActivity(activity.idActivite)" *ngIf="User.typeProfil == 'client' && activity.dateAnnulationAct == null" class='btn_inscription'>S'inscrire</button>
+            <button type='button' (click)="deleteActivity(activity)" *ngIf="User.typeProfil == 'admin'" class='btn_inscription'>Supprimer</button>
             </div>
             </div>
           </div>
@@ -76,14 +76,14 @@
 
        <div class="activites_inscrites" id="activites_inscrites" *ngIf="page == 'activitiesRegistered'">
         <div class="afficher_activites">
-          <div class='card' *ngFor="let registration of User.activites">
+          <div class='card' *ngFor="let registration of activityRegisteredList">
           <div class='titreCard'>{{registration.animation.nomAnimation}}</div>
           <div class='actCard'>
-          Date : {{registration.dateAct}}<br/>
+          Date : {{registration.dateAct | date: " dd/MM/yyyy"}}<br/>
           Prix : {{registration.prixAct}}€<br/>
           <div class='buttonAct'>
           Inscrit
-          <button type='button' name='action' (click)="deleteRegistration(registration.idActivite)" class='btn_inscription'>Se désinscrire</button>
+          <button type='button' name='action' (click)="unregisterActivity(registration.idActivite)" class='btn_inscription'>Se désinscrire</button>
           </div>
           </div>
           </div>

@@ -5,6 +5,7 @@ import com.gactiapi.com.dto.LoginDto;
 import com.gactiapi.com.dto.UpdateCompteDto;
 import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Compte;
+import com.gactiapi.com.repository.ActiviteRepository;
 import com.gactiapi.com.repository.CompteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ import java.util.List;
 public class CompteService implements UserDetailsService {
   @Autowired
   private CompteRepository compteRepository;
+
+  @Autowired
+  private ActiviteRepository activiteRepository;
 
   public ResponseEntity<List<Compte>> findAllComptes() {
     return new ResponseEntity<>(compteRepository.findAll(), HttpStatus.OK);
@@ -118,6 +122,26 @@ public class CompteService implements UserDetailsService {
   public ResponseEntity<List<Compte>> getAllCompteByType(String typeprofil){
     List<Compte> Comptes = compteRepository.findAllByTypeProfil(typeprofil);
     return new ResponseEntity<>(Comptes, HttpStatus.OK);
+  }
+
+  public ResponseEntity<HttpStatus> registerActivity(String idUser, int idActivite){
+    Compte userFound = compteRepository.findByidUser(idUser).orElseThrow(() -> new RuntimeException("User not found."));
+    Activite activiteFound = activiteRepository.findByidActivite(idActivite).orElseThrow(() -> new RuntimeException("Activity not found"));
+    List<Activite> activityList = userFound.getActivites();
+    activityList.add(activiteFound);
+    userFound.setActivites(activityList);
+    compteRepository.save(userFound);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  public ResponseEntity<HttpStatus> unregisterActivity(String idUser, int idActivite){
+    Compte userFound = compteRepository.findByidUser(idUser).orElseThrow(() -> new RuntimeException("User not found."));
+    Activite activiteFound = activiteRepository.findByidActivite(idActivite).orElseThrow(() -> new RuntimeException("Activity not found"));
+    List<Activite> activityList = userFound.getActivites();
+    activityList.remove(activiteFound);
+    userFound.setActivites(activityList);
+    compteRepository.save(userFound);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
 

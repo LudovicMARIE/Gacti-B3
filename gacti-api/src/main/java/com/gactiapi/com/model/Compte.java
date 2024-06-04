@@ -63,6 +63,10 @@ public class Compte implements UserDetails {
     this.activites = activites;
   }
 
+  public String getIdUser() {
+    return idUser;
+  }
+
   public String getNomCompte() {
     return nomCompte;
   }

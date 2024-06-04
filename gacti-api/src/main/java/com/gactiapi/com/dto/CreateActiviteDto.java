@@ -2,9 +2,6 @@ package com.gactiapi.com.dto;
 
 import com.gactiapi.com.model.Animation;
 import com.gactiapi.com.model.Compte;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 import java.util.Date;
 
@@ -15,30 +12,30 @@ public class CreateActiviteDto {
   private Date dateAct;
   private Date dateAnnulationAct;
   private String etatActivite;
-  private Compte encadrant;
+  private String id_encadrant;
 
   public CreateActiviteDto() {
     this.etatActivite = "PREVUE";
   }
 
-  public CreateActiviteDto(Integer idActivite, Animation animation, Integer prixAct, Date dateAct, Date dateAnnulationAct, Compte encadrant) {
+  public CreateActiviteDto(Integer idActivite, Animation animation, Integer prixAct, Date dateAct, Date dateAnnulationAct, String encadrant) {
     this.idActivite = idActivite;
     this.animation = animation;
     this.prixAct = prixAct;
     this.dateAct = dateAct;
     this.etatActivite = "PREVUE";
     this.dateAnnulationAct = dateAnnulationAct;
-    this.encadrant = encadrant;
+    this.id_encadrant = encadrant;
   }
 
-  public CreateActiviteDto(Integer idActivite, Animation animation, Integer prixAct, Date dateAct, Date dateAnnulationAct, String etatActivite, Compte encadrant) {
+  public CreateActiviteDto(Integer idActivite, Animation animation, Integer prixAct, Date dateAct, Date dateAnnulationAct, String etatActivite, String encadrant) {
     this.idActivite = idActivite;
     this.animation = animation;
     this.prixAct = prixAct;
     this.dateAct = dateAct;
     this.dateAnnulationAct = dateAnnulationAct;
     this.etatActivite = etatActivite;
-    this.encadrant = encadrant;
+    this.id_encadrant = encadrant;
   }
 
 
@@ -91,11 +88,11 @@ public class CreateActiviteDto {
     this.etatActivite = etatActivite;
   }
 
-  public Compte getEncadrant() {
-    return encadrant;
+  public String getId_encadrant() {
+    return id_encadrant;
   }
 
-  public void setEncadrant(Compte encadrant) {
-    this.encadrant = encadrant;
+  public void setId_encadrant(String id_encadrant) {
+    this.id_encadrant = id_encadrant;
   }
 }

@@ -45,6 +45,30 @@ constructor(private sessionService: SessionService,
   }
 
   onFilterChangeActivities(value: string){
+    if(value == 'all'){
+      this.initActivityList();
+    }else{
+      this.activityService.getAllActivitesByType(value).subscribe({
+        next: (response) => {
+          //console.log(response);
+          this.activityList = [];
+          response.forEach((activity: any) => {
+            let act: Activity = {
+              idActivite: activity.idActivite,
+              animation: activity.animation,
+              prixAct: activity.prixAct,
+              dateAct: activity.dateAct,
+              dateAnnulationAct: activity.dateAnnulationAct,
+              etatActivite: activity.etatActivite,
+              encadrant: activity.encadrant
+              }
+            this.activityList.push(act);
+          });
+          //console.log(this.activityList);
+        },
+        });
+    }
+
     // if(value == 'all'){
     //   this.activityService.getActivities().subscribe({
     //     next: (response) => {
@@ -93,8 +117,24 @@ constructor(private sessionService: SessionService,
   }
 
 
-  registerActivity(activity: Activity){
-  
+  registerActivity(idActivite: number){
+    this.activityService.registerActivity(this.User.idUser, idActivite).subscribe({
+      next: (response) => {
+        //console.log(response);
+        this.initRegistrations();
+      }
+    });
+    
+  }
+
+  unregisterActivity(idActivite: number){
+    this.activityService.unregisterActivity(this.User.idUser, idActivite).subscribe({
+      next: (response) => {
+        //console.log(response);
+        this.initRegistrations();
+      }
+    });
+    
   }
 
   deleteRegistration(registrationNumber: number){
@@ -107,26 +147,26 @@ constructor(private sessionService: SessionService,
   }
 
   initRegistrations(){
-    // this.activityService.getActivitiesRegisteredByUser(this.User.idUser).subscribe({
-    //   next: (response) => {
-    //     //console.log(response);
-    //     this.activityRegisteredList = [];
-    //     response.forEach((activity: any) => {
-    //       let act: Activity = {
-    //           idActivite: activity.idActivite,
-    //           animation: activity.animation,
-    //           prixAct: activity.prixAct,
-    //           dateAct: activity.dateAct.dateAct,
-    //           dateAnnulationAct: activity.dateAnnulationAct,
-    //           etatActivite: activity.etatActivite,
-    //           encadrant: activity.encadrant
-    //         }
-          
-    //       this.activityRegisteredList.push(act);
-    //     });
-    //     console.log(this.activityRegisteredList);
-    //   },
-    //   });
+    this.activityService.getActivitesregisteredByUser(this.User.idUser).subscribe({
+      next: (response) => {
+        //console.log(response);
+        this.activityRegisteredList = [];
+        response.forEach((activity: any) => {
+          let act: Activity = {
+            idActivite: activity.idActivite,
+            animation: activity.animation,
+            prixAct: activity.prixAct,
+            dateAct: activity.dateAct,
+            dateAnnulationAct: activity.dateAnnulationAct,
+            etatActivite: activity.etatActivite,
+            encadrant: activity.encadrant
+            }
+          this.activityRegisteredList.push(act);
+        });
+        //console.log(this.activityRegisteredList);
+      },
+      });
+
   }
 
 
@@ -143,7 +183,7 @@ constructor(private sessionService: SessionService,
             idActivite: activity.idActivite,
             animation: activity.animation,
             prixAct: activity.prixAct,
-            dateAct: activity.dateAct.dateAct,
+            dateAct: activity.dateAct,
             dateAnnulationAct: activity.dateAnnulationAct,
             etatActivite: activity.etatActivite,
             encadrant: activity.encadrant

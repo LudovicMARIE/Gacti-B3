@@ -20,6 +20,10 @@ export class ActivityService {
     return this.http.get(`${this.apiUrl}/activities`);
   }
 
+  getAllActivitesByType(typeAnimation: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/activities/type/${typeAnimation}`);
+  }
+
   getActiviteById(codeanim: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/activities/${codeanim}`);
   }
@@ -34,6 +38,18 @@ export class ActivityService {
 
   deleteActivite(codeanim: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/activities/${codeanim}`);
+  }
+
+  registerActivity(idUser: string, idActivite: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/${idUser}/activities/${idActivite}`, {});
+  }
+
+  unregisterActivity(idUser: string, idActivite: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/${idUser}/activities/delete/${idActivite}`, {});
+  }
+
+  getActivitesregisteredByUser(idUser: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/${idUser}/activities`);
   }
 
 

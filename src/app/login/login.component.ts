@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           console.log(response);
 
             let currentUser: User = {
-              idUser: response.username,
+              idUser: response.idUser,
               mdp: response.password,
               nomCompte: response.nomCompte,
               prenomCompte: response.prenomCompte,

@@ -71,7 +71,12 @@ div.afficher_activites,div.afficher_animations{
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    gap:20px;
+}
+
+div.activites{
+    width:100vw;
 }
 
 div.afficher_animations{

@@ -3,7 +3,10 @@ package com.gactiapi.com.service;
 import com.gactiapi.com.dto.CreateActiviteDto;
 import com.gactiapi.com.dto.UpdateActiviteDto;
 import com.gactiapi.com.model.Activite;
+import com.gactiapi.com.model.Compte;
 import com.gactiapi.com.repository.ActiviteRepository;
+import com.gactiapi.com.repository.AnimationRepository;
+import com.gactiapi.com.repository.CompteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,12 @@ public class ActiviteService {
   @Autowired
   private ActiviteRepository activiteRepository;
 
+  @Autowired
+  private AnimationRepository animationRepository;
+
+  @Autowired
+  private CompteRepository compteRepository;
+
   public ResponseEntity<List<Activite>> findAllActivites() {
     return new ResponseEntity<>(activiteRepository.findAll(), HttpStatus.OK);
   }
@@ -27,11 +36,12 @@ public class ActiviteService {
   }
 
   public ResponseEntity<Activite> createActivite(CreateActiviteDto createActiviteDto){
+    Compte encadrant =  compteRepository.findByidUser(createActiviteDto.getId_encadrant()).orElseThrow(() -> new RuntimeException("Encadrant not found."));
     Activite newActivite = new Activite(
       createActiviteDto.getAnimation(),
       createActiviteDto.getPrixAct(),
       createActiviteDto.getDateAct(),
-      createActiviteDto.getEncadrant()
+      encadrant
     );
     activiteRepository.save(newActivite);
     return new ResponseEntity<>(newActivite, HttpStatus.CREATED);
@@ -54,6 +64,11 @@ public class ActiviteService {
   public ResponseEntity<HttpStatus> deleteActivite(int idActivite){
       activiteRepository.deleteById(idActivite);
       return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  public ResponseEntity<List<Activite>> findAllByType(String typeAnim){
+    List<Activite> actList = activiteRepository.findAllByAnimationType(typeAnim);
+    return new ResponseEntity<>(actList, HttpStatus.OK);
   }
 
 }
