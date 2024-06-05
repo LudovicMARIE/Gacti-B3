@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     this.errorMessage = null;
     this.username = this.form.get('username')?.value;
     this.password = this.form.get('password')?.value;
+    this.username = this.username.toLowerCase();
     this.loginService.login({ mail: this.username, mdp: this.password })
       .subscribe({
         next: (response) => {
