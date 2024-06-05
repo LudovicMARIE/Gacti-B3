@@ -25,5 +25,13 @@ destroySession() {
   localStorage.removeItem('user');
 }
 
+setCurrentPage(page: string) {
+  localStorage.setItem('currentPage', page);
+}
+
+getCurrentPage() {
+  return localStorage.getItem('currentPage');
+}
+
 
 }

@@ -66,8 +66,8 @@
             Prix : {{activity.prixAct}}€<br/>
             <div *ngIf="activity.dateAnnulationAct != null">Annulée le {{activity.dateAnnulationAct | date: " dd/MM/yyyy"}}</div>
             <div class='buttonAct'>
-            <button type='button' (click)="registerActivity(activity.idActivite)" *ngIf="User.typeProfil == 'client' && activity.dateAnnulationAct == null" class='btn_inscription'>S'inscrire</button>
-            <button type='button' (click)="deleteActivity(activity)" *ngIf="User.typeProfil == 'admin'" class='btn_inscription'>Supprimer</button>
+            <button type='button' (click)="registerActivity(activity.idActivite)" *ngIf="User?.typeProfil == 'client' && activity.dateAnnulationAct == null" class='btn_inscription'>S'inscrire</button>
+            <button type='button' (click)="deleteActivity(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Supprimer</button>
             </div>
             </div>
           </div>

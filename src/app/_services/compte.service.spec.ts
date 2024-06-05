@@ -2,11 +2,13 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { CompteService } from './compte.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('Service: Compte', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CompteService]
+      providers: [CompteService],
+      imports: [HttpClientTestingModule]
     });
   });
 

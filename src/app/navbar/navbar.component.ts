@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../_services/session.service';
 import { Router } from '@angular/router';
-import { HomeComponent } from '../home/home.component';
 import { User } from '../_interfaces/user';
 
 @Component({
@@ -10,13 +9,26 @@ import { User } from '../_interfaces/user';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-currentUser: User = this.SessionService.getUser();
+currentUser: User = {
+  idUser: '',
+  mdp: '',
+  nomCompte: '',
+  prenomCompte: '',
+  dateInscrip: new Date(),
+  dateFerme: new Date(),
+  typeProfil: 'client',
+  dateDebSejour: new Date(),
+  dateFinSejour: new Date(),
+  adrMailCompte: '',
+  telCompte: '',
+  activites: []
+}
 
   constructor(private SessionService: SessionService,
-    private router: Router,
-    private homeComponent: HomeComponent) { }
+    private router: Router) { }
 
   ngOnInit() {
+    this.currentUser = this.SessionService.getUser();
   }
 
 
@@ -30,6 +42,6 @@ currentUser: User = this.SessionService.getUser();
   }
 
   changePage(pageSelected: string){
-    this.homeComponent.page = pageSelected;
+    this.SessionService.setCurrentPage(pageSelected);
   }
 }

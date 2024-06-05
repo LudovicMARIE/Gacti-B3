@@ -12,8 +12,22 @@ import { AnimationType } from '../_enums/AnimationType.enum';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-User: User = this.sessionService.getUser();
-page: string = '';
+
+User: User = {
+  idUser: '',
+  mdp: '',
+  nomCompte: '',
+  prenomCompte: '',
+  dateInscrip: new Date(),
+  dateFerme: new Date(),
+  typeProfil: 'client',
+  dateDebSejour: new Date(),
+  dateFinSejour: new Date(),
+  adrMailCompte: '',
+  telCompte: '',
+  activites: []
+}
+page: string = this.sessionService.getCurrentPage() ?? 'default';
 activityList: Activity[] = [];
 animationTypeList: AnimationType[] = [
   AnimationType.SPORT,
@@ -35,8 +49,9 @@ constructor(private sessionService: SessionService,
       console.log(this.sessionService.getUser());
       this.User = this.sessionService.getUser();
     }
+
+    this.page = this.sessionService.getCurrentPage() ?? 'default';
     
-    this.page = 'default';
 
     this.initActivityList();
     this.initRegistrations();
