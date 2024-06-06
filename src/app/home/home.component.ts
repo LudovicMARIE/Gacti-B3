@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { ActivityService } from '../_services/activity.service';
 import { Activity } from '../_interfaces/activity';
 import { AnimationType } from '../_enums/AnimationType.enum';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateActivityComponent } from '../createActivity/createActivity.component';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +29,8 @@ User: User = {
   telCompte: '',
   activites: []
 }
-page: string = this.sessionService.getCurrentPage() ?? 'default';
+
+page: string = 'default';
 activityList: Activity[] = [];
 animationTypeList: AnimationType[] = [
   AnimationType.SPORT,
@@ -40,7 +43,8 @@ animationTypeList: AnimationType[] = [
 activityRegisteredList: Activity[] = [];
 constructor(private sessionService: SessionService,
   private router: Router,
-  private activityService: ActivityService) { }
+  private activityService: ActivityService,
+  private dialog: MatDialog) { }
 
   ngOnInit() {
     if(this.sessionService.getUser() == null){
@@ -50,7 +54,9 @@ constructor(private sessionService: SessionService,
       this.User = this.sessionService.getUser();
     }
 
-    this.page = this.sessionService.getCurrentPage() ?? 'default';
+    this.sessionService.currentPage.subscribe(value => {
+      this.page = value;
+    });
     
 
     this.initActivityList();
@@ -208,6 +214,19 @@ constructor(private sessionService: SessionService,
         //console.log(this.activityList);
       },
       });
+  }
+
+
+  openCreateActComponent(): void {
+    const dialogRef = this.dialog.open(CreateActivityComponent, {
+      width: '250px',
+      panelClass: 'custom-dialog-container',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.initActivityList();
+    });
   }
 
 

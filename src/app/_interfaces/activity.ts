@@ -5,10 +5,20 @@ export interface Activity {
   animation: Animation;
   prixAct: number;
   dateAct: Date;
-  dateAnnulationAct: Date;
+  dateAnnulationAct?: Date;
   etatActivite: string;
   encadrant: User;
 }
+
+export interface ActivityInserted {
+    idActivite: number;
+    animation: Animation;
+    prixAct: number;
+    dateAct: Date;
+    dateAnnulationAct?: Date;
+    etatActivite: string;
+    id_encadrant: string;
+  }
 
 export interface Animation {
     idAnimation: string;

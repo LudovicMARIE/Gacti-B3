@@ -23,7 +23,7 @@ span{
 
 div.hello{
     background-size:cover;
-    background-color : rgb(254, 250, 224);
+    // background-color : rgb(254, 250, 224);
     height:200px;
     font-size:30px;
     display:flex;
@@ -52,15 +52,6 @@ div.informations span{
     text-decoration: underline;
 }
 
-
-
-
-
-div.panel{
-    border-top:5px solid #283618;
-}
-
-
 div.downpanel{
     display:flex;
     flex-direction: row;
@@ -73,6 +64,31 @@ div.afficher_activites,div.afficher_animations{
     flex-wrap: wrap;
     justify-content: flex-start;
     gap:20px;
+}
+
+div.comboboxAct{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5px;
+    gap: 5px;
+}
+
+div.comboboxAct button{
+    background-color: #606c38;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    height:50%;
+    margin-top:auto;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border:2px solid #606c38;
+    transition: all .2s ease-in-out;
+    cursor:pointer;
+
 }
 
 div.activites{
@@ -190,3 +206,18 @@ button.btn_inscription{
 }
 
 
+
+.custom-dialog-container .cdk-overlay-pane {
+    background-color: rgba(0, 0, 0, 0.8) !important; /* Darker background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .custom-dialog-container .mat-dialog-container {
+    max-width: none;
+    max-height: none;
+    height: auto;
+    width: auto;
+  }

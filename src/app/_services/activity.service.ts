@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { Activity } from '../_interfaces/activity';
+import { Activity, ActivityInserted } from '../_interfaces/activity';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class ActivityService {
     return this.http.get(`${this.apiUrl}/activities/${codeanim}`);
   }
 
-  createActivite(data: Activity): Observable<any> {
+  createActivite(data: ActivityInserted): Observable<any> {
     return this.http.post(`${this.apiUrl}/activities`, data);
   }
 

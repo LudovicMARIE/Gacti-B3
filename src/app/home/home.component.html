@@ -53,6 +53,7 @@
             <option value="all">Toutes les activités</option>
             <option [value]="animType" *ngFor="let animType of animationTypeList">{{animType}}</option>
           </select>
+          <button *ngIf="User.typeProfil == 'admin'" (click)="openCreateActComponent()">Créer une activité</button>
         </div>
         <div class="afficher_activites" id="afficher_activites">
           <div 

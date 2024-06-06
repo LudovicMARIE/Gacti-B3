@@ -9,14 +9,17 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
+import { CreateActivityComponent } from './createActivity/createActivity.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
-  declarations: [			
+  declarations: [				
     AppComponent,
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    SignupComponent
+    SignupComponent,
+      CreateActivityComponent
    ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { SignupComponent } from './signup/signup.component';
     ReactiveFormsModule,
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

@@ -44,11 +44,11 @@ public class ActiviteController {
 
   @PostMapping
   public ResponseEntity<Activite> createActivite(@RequestBody CreateActiviteDto createActiviteDto){
-    try{
+    //try{
       return activiteService.createActivite(createActiviteDto);
-    }catch(RuntimeException e){
-      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    //}catch(RuntimeException e){
+    //  return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    //}
   }
 
 
