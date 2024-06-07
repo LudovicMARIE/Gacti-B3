@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/animations")
+@RequestMapping("/api/animations")
 public class AnimationController {
   @Autowired
   private AnimationService animationService;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class CompteController {
   @Autowired
   private CompteService compteService;
@@ -87,5 +87,7 @@ public class CompteController {
   public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long idUser){
     return compteService.deleteCompte(idUser);
   }
+
+
 
 }

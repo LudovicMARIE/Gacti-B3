@@ -19,6 +19,9 @@
               <div class="wrong-pass" *ngIf="errorMessage">
                 {{ errorMessage }}
               </div>
+              <div class="register">
+                Pas de compte ? <a (click)="openRegisterComponent()">Inscrivez-vous</a>
+              </div>
               <button type="submit" id='btnLog'>Connexion</button>
     </form>
   </div>

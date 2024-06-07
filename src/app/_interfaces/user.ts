@@ -6,7 +6,7 @@ export interface User {
   nomCompte: string;
   prenomCompte: string;
   dateInscrip: Date;
-  dateFerme: Date;
+  dateFerme?: Date;
   typeProfil: string;
   dateDebSejour: Date;
   dateFinSejour: Date;

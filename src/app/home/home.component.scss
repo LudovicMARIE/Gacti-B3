@@ -58,7 +58,7 @@ div.downpanel{
     justify-content: center;
 }
 
-div.afficher_activites,div.afficher_animations{
+div.afficher_activites,div.afficher_animations, div.animationCardList{
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -97,6 +97,22 @@ div.activites{
 
 div.afficher_animations{
     align-items: flex-start;
+}
+
+div.animationList button{
+    background-color: #606c38;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    margin-top:auto;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border:2px solid #606c38;
+    transition: all .2s ease-in-out;
+    cursor:pointer;
+
 }
 div.card,div.cardAnim{
     width:250px;

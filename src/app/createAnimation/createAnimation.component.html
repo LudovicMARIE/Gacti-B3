@@ -1,0 +1,44 @@
+<div class="content">
+  <div class="header">
+    Créer une activité
+  </div>
+  <div class="form">
+    <form class='createActivity' [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-text">
+        <label for="idAnimation">idAnimation</label>
+        <input id="idAnimation" formControlName="idAnimation">
+      </div>
+      <div class="form-text">
+        <label for="nomAnimation">nomAnimation</label>
+        <input id="nomAnimation" formControlName="nomAnimation">
+      </div>
+      <label for="animType">Type d'animation : </label>
+      <select #selectAnim formControlName="animType">
+        <option value="all" selected disabled hidden>Choisissez un type d'animation</option>
+        <option [value]="animType" *ngFor="let animType of animationTypeList">{{animType}}</option>
+      </select>
+      <div class="form-text">
+        <label for="dureeAnimation">dureeAnimation</label>
+        <input id="dureeAnimation" type="number" formControlName="dureeAnimation">
+      </div>
+      <div class="form-text">
+        <label for="limiteAge">limiteAge</label>
+        <input id="limiteAge" type="number" formControlName="limiteAge">
+      </div>
+      <div class="form-text">
+        <label for="nbPlaceAnimation">nbPlaceAnimation</label>
+        <input id="nbPlaceAnimation" type="number" formControlName="nbPlaceAnimation">
+      </div>
+      <div class="form-text">
+        <label for="descriptionAnimation">descriptionAnimation</label>
+        <input id="descriptionAnimation" formControlName="descriptionAnimation">
+      </div>
+      <div class="form-text">
+        <label for="difficulteAnimation">difficulteAnimation</label>
+        <input id="difficulteAnimation" formControlName="difficulteAnimation">
+      </div>
+      <button type="submit" class="btn">Créer</button>
+    </form>
+  </div>
+  
+</div>

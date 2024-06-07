@@ -1,0 +1,46 @@
+<div class="content">
+  <div class="header">
+    Création de compte
+  </div>
+  <div class="form">
+    <form class='createActivity' [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-text">
+        <label for="idUser">Nom d'utilisateur :</label>
+        <input id="idUser" formControlName="idUser">
+      </div>
+      <div class="form-text">
+        <label for="mdp">Mot de passe :</label>
+        <input id="mdp" type="password" formControlName="mdp">
+      </div>
+      <div class="form-text">
+        <label for="nomCompte">Nom de famille :</label>
+        <input id="nomCompte" type="text" formControlName="nomCompte">
+      </div>
+      <div class="form-text">
+        <label for="prenomCompte">Prénom :</label>
+        <input id="prenomCompte" type="text" formControlName="prenomCompte">
+      </div>
+      <div class="form-text">
+        <label for="dateDebSejour">Date de début de séjour :</label>
+        <input id="dateDebSejour" type="date" formControlName="dateDebSejour">
+      </div>
+      <div class="form-text">
+        <label for="dateFinSejour">Date de fin de séjour :</label>
+        <input id="dateFinSejour" type="date" formControlName="dateFinSejour">
+      </div>
+      <div class="form-text">
+        <label for="adrMailCompte">Adresse mail :</label>
+        <input id="adrMailCompte" type="text" formControlName="adrMailCompte">
+      </div>
+      <div class="form-text">
+        <label for="telCompte">Numéro de téléphone :</label>
+        <input id="telCompte" type="number" formControlName="telCompte">
+      </div>
+      <div class="buttonDiv">
+        <button type="submit">S'inscrire</button>
+      </div>
+      
+    </form>
+  </div>
+  
+</div>

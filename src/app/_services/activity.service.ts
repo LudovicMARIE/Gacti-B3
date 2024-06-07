@@ -13,43 +13,43 @@ export class ActivityService {
   constructor(private http: HttpClient) { }
 
   getCompteActivite(username: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/${username}/activities`);
+    return this.http.get(`/api/users/${username}/activities`);
   }
 
   getAllActivites(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/activities`);
+    return this.http.get(`/api/activities`);
   }
 
   getAllActivitesByType(typeAnimation: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/activities/type/${typeAnimation}`);
+    return this.http.get(`/api/activities/type/${typeAnimation}`);
   }
 
   getActiviteById(codeanim: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/activities/${codeanim}`);
+    return this.http.get(`/api/activities/${codeanim}`);
   }
 
   createActivite(data: ActivityInserted): Observable<any> {
-    return this.http.post(`${this.apiUrl}/activities`, data);
+    return this.http.post(`/api/activities`, data);
   }
 
   updateActivite(codeActivite: number, data: Activity): Observable<any> {
-    return this.http.put(`${this.apiUrl}/activities/${codeActivite}`, data);
+    return this.http.put(`/api/activities/${codeActivite}`, data);
   }
 
   deleteActivite(codeanim: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/activities/${codeanim}`);
+    return this.http.delete(`/api/activities/${codeanim}`);
   }
 
   registerActivity(idUser: string, idActivite: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/${idUser}/activities/${idActivite}`, {});
+    return this.http.post(`/api/users/${idUser}/activities/${idActivite}`, {});
   }
 
   unregisterActivity(idUser: string, idActivite: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/${idUser}/activities/delete/${idActivite}`, {});
+    return this.http.post(`/api/users/${idUser}/activities/delete/${idActivite}`, {});
   }
 
   getActivitesregisteredByUser(idUser: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/${idUser}/activities`);
+    return this.http.get(`/api/users/${idUser}/activities`);
   }
 
 
@@ -58,31 +58,31 @@ export class ActivityService {
   //Old code
 
   // getActivities(): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/activities`);
+  //   return this.http.get(`/api/activities`);
   // }
 
   // getActivityByAnimType(codeanim: string): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/activities/${codeanim}`);
+  //   return this.http.get(`/api/activities/${codeanim}`);
   // }
 
   // registerActivity(credentials: { username: string; codeanim: string; dateact: string; }): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/register-activity`,credentials);
+  //   return this.http.post(`/api/register-activity`,credentials);
   // }
 
   // getActivityType(): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/animation-types`);
+  //   return this.http.get(`/api/animation-types`);
   // }
 
   // getActivitiesRegisteredByUser(username: string): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/activities/registered/${username}`);
+  //   return this.http.get(`/api/activities/registered/${username}`);
   // }
 
   // deleteRegistration(registrationNumber: number): Observable<any> {
-  //   return this.http.delete(`${this.apiUrl}/activities/registered/${registrationNumber}`);
+  //   return this.http.delete(`/api/activities/registered/${registrationNumber}`);
   // }
 
   // deleteActivity(codeAnim: string, dateAct: string): Observable<any> {
-  //   return this.http.delete(`${this.apiUrl}/delete-activity/${codeAnim}/${dateAct}`);
+  //   return this.http.delete(`/api/delete-activity/${codeAnim}/${dateAct}`);
   // }
 
 

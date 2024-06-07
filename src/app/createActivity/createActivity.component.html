@@ -1,30 +1,32 @@
-<div class="header">
-  Créer une activité
-</div>
-<div class="form">
-  <form class='createActivity' [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="form-text">
-      <label for="anim">Type d'activité : </label>
-      <select #selectAnim formControlName="anim" (input)="onChangeAnim(selectAnim.value)">
-        <option value="all" selected disabled hidden>Choisissez un type d'activité</option>
-        <option [value]="anim.idAnimation" *ngFor="let anim of animationList">{{anim.nomAnimation}}</option>
-      </select>
-    </div>
-    <div class="form-text">
-      <label for="prixAct">Prix de l'activité</label>
-      <input type="number" formControlName="prixAct" placeholder="prix de l'activité">
-    </div>
-    <div class="form-text">
-      <label for="dateAct">Date de l'activité</label>
-      <input type="date" formControlName="dateAct" placeholder="date de l'activité">
-    </div>
-    <div class="form-text">
-      <label for="encad">Encadrant : </label>
-      <select #selectEncad formControlName="encad">
-        <option value="all" selected disabled hidden>Choisissez un type d'activité</option>
-        <option [value]="encad.idUser" *ngFor="let encad of encadrantList">{{encad.prenomCompte+" "+encad.nomCompte}}</option>
-      </select>
-    </div>
-    <button type="submit">Créer</button>
-  </form>
+<div class="content">
+  <div class="header">
+    Créer une activité
+  </div>
+  <div class="form">
+    <form class='createActivity' [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-text">
+        <label for="anim">Type d'activité : </label>
+        <select #selectAnim formControlName="anim" (input)="onChangeAnim(selectAnim.value)">
+          <option value="all" selected disabled hidden>Choisissez une animation</option>
+          <option [value]="anim.idAnimation" *ngFor="let anim of animationList">{{anim.nomAnimation}}</option>
+        </select>
+      </div>
+      <div class="form-text">
+        <label for="prixAct">Prix de l'activité</label>
+        <input type="number" formControlName="prixAct" placeholder="prix de l'activité">
+      </div>
+      <div class="form-text">
+        <label for="dateAct">Date de l'activité</label>
+        <input type="date" formControlName="dateAct" placeholder="date de l'activité">
+      </div>
+      <div class="form-text">
+        <label for="encad">Encadrant : </label>
+        <select #selectEncad formControlName="encad">
+          <option value="all" selected disabled hidden>Choisissez un type d'activité</option>
+          <option [value]="encad.idUser" *ngFor="let encad of encadrantList">{{encad.prenomCompte+" "+encad.nomCompte}}</option>
+        </select>
+      </div>
+      <button type="submit">Créer</button>
+    </form>
+  </div>
 </div>

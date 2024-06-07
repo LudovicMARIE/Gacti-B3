@@ -11,15 +11,19 @@ import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
 import { CreateActivityComponent } from './createActivity/createActivity.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { CreateAnimationComponent } from './createAnimation/createAnimation.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [				
+  declarations: [						
     AppComponent,
     NavbarComponent,
     LoginComponent,
     HomeComponent,
     SignupComponent,
-      CreateActivityComponent
+      CreateActivityComponent,
+      CreateAnimationComponent,
+      RegisterComponent
    ],
   imports: [
     BrowserModule,

@@ -90,6 +90,22 @@
           </div>
         </div>
        </div>
+
+       <div class="animationList" id="animationList" *ngIf="page == 'animationList'">
+        <div class="comboboxAct" id="comboboxAct">
+          <button *ngIf="User.typeProfil == 'admin'" (click)="openCreateAnimComponent()">Créer une animation</button>
+        </div>
+        <div class="animationCardList">
+          <div class='cardAnim' *ngFor="let anim of animList">
+            <div class='titreCard'>{{ anim.nomAnimation }}</div>
+            <div class='buttonAnim'>
+            <button class='btn_inscription'(click)="deleteAnimation(anim.idAnimation)" >Supprimer</button>
+            <button class='btn_inscription' id='modifAnim'>Modifier</button>
+          </div>
+          </div>
+        </div>
+        
+      </div>
     </div>
   </div>
 </div>

@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { SessionService } from '../_services/session.service';
 import { User } from '../_interfaces/user';
 import { Router } from '@angular/router';
 import { ActivityService } from '../_services/activity.service';
-import { Activity } from '../_interfaces/activity';
+import { Activity, Animation } from '../_interfaces/activity';
 import { AnimationType } from '../_enums/AnimationType.enum';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateActivityComponent } from '../createActivity/createActivity.component';
+import { CreateAnimationComponent } from '../createAnimation/createAnimation.component';
+import { Subject } from 'rxjs';
+import { AnimationService } from '../_services/animation.service';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +17,8 @@ import { CreateActivityComponent } from '../createActivity/createActivity.compon
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  destroyRef = inject(DestroyRef);
 
 User: User = {
   idUser: '',
@@ -41,12 +46,21 @@ animationTypeList: AnimationType[] = [
   AnimationType.FAMILLE,
 ];
 activityRegisteredList: Activity[] = [];
+animList: Animation[] = [];
 constructor(private sessionService: SessionService,
   private router: Router,
   private activityService: ActivityService,
-  private dialog: MatDialog) { }
+  private dialog: MatDialog,
+  private animationService: AnimationService) { }
 
   ngOnInit() {
+    const destroyed = new Subject();
+ 
+    this.destroyRef.onDestroy(() => {
+      destroyed.next(null);
+      destroyed.complete();
+    });
+
     if(this.sessionService.getUser() == null){
       this.router.navigateByUrl('');
     }else{
@@ -61,6 +75,7 @@ constructor(private sessionService: SessionService,
 
     this.initActivityList();
     this.initRegistrations();
+    this.initAnimList();
 
 
   }
@@ -89,52 +104,16 @@ constructor(private sessionService: SessionService,
         },
         });
     }
-
-    // if(value == 'all'){
-    //   this.activityService.getActivities().subscribe({
-    //     next: (response) => {
-    //       //console.log(response);
-    //       this.activityList = [];
-    //       response.forEach((activity: any) => {
-    //         let act: Activity = {
-    //           idActivite: activity.idActivite,
-    //           animation: activity.animation,
-    //           prixAct: activity.prixAct,
-    //           dateAct: activity.dateAct.dateAct,
-    //           dateAnnulationAct: activity.dateAnnulationAct,
-    //           etatActivite: activity.etatActivite,
-    //           encadrant: activity.encadrant
-    //           }
-    //         this.activityList.push(act);
-    //       });
-    //       //console.log(this.activityList);
-    //     },
-    //     });
-    // }else{
-    //   this.activityService.getActivityByAnimType(value).subscribe({
-    //     next: (response) => {
-    //       //console.log(response);
-    //       this.activityList = [];
-    //       response.forEach((activity: any) => {
-    //         let act: Activity = {
-    //           idActivite: activity.idActivite,
-    //           animation: activity.animation,
-    //           prixAct: activity.prixAct,
-    //           dateAct: activity.dateAct.dateAct,
-    //           dateAnnulationAct: activity.dateAnnulationAct,
-    //           etatActivite: activity.etatActivite,
-    //           encadrant: activity.encadrant
-    //           }
-    //         this.activityList.push(act);
-    //       });
-    //       //console.log(this.activityList);
-    //     },
-    //     });
-    // }
   };
 
 
   deleteActivity(activity: Activity){
+    this.activityService.deleteActivite(activity.idActivite).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.initActivityList();
+      }
+    });
   }
 
 
@@ -156,15 +135,6 @@ constructor(private sessionService: SessionService,
       }
     });
     
-  }
-
-  deleteRegistration(registrationNumber: number){
-    // this.activityService.deleteRegistration(registrationNumber).subscribe({
-    //   next: (response) => {
-    //     //console.log(response);
-    //     this.initRegistrations();
-    //   }
-    // });
   }
 
   initRegistrations(){
@@ -216,16 +186,61 @@ constructor(private sessionService: SessionService,
       });
   }
 
+  initAnimList(){
+    console.log('initAnimList');
+    this.animationService.getAllAnimation().subscribe({
+      next: (response) =>{
+        this.animList = [];
+        response.forEach((animation: any) => {
+          let anim: Animation = {
+            idAnimation: animation.idAnimation,
+            nomAnimation: animation.nomAnimation,
+            dateCreationAnimation: animation.dateCreationAnimation,
+            dureeAnimation: animation.dureeAnimation,
+            limiteAge: animation.limiteAge,
+            nbPlaceAnimation: animation.nbPlaceAnimation,
+            descriptionAnimation: animation.descriptionAnimation,
+            typeAnimation: animation.typeAnimation,
+            difficulteAnimation: animation.difficulteAnimation
+          }
+          this.animList.push(anim);
+        
+        })
+      }
+    });
+  }
+
+  deleteAnimation(idAnim: string){
+    this.animationService.deleteAnimation(idAnim).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.initAnimList();
+      }
+    });
+  }
+
 
   openCreateActComponent(): void {
     const dialogRef = this.dialog.open(CreateActivityComponent, {
-      width: '250px',
+      width: 'fit-content',
       panelClass: 'custom-dialog-container',
     });
   
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.initActivityList();
+    });
+  }
+
+  openCreateAnimComponent(): void {
+    const dialogRef = this.dialog.open(CreateAnimationComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.initAnimList();
     });
   }
 

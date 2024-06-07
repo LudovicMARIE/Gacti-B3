@@ -4,6 +4,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { User } from '../_interfaces/user';
 import { SessionService } from '../_services/session.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
     private sessionService: SessionService,
-    private Router: Router) { }
+    private Router: Router,
+    private dialog: MatDialog,) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -69,6 +72,17 @@ export class LoginComponent implements OnInit {
           } 
         }
       });
+  }
+
+  openRegisterComponent(): void {
+    const dialogRef = this.dialog.open(RegisterComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

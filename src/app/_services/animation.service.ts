@@ -14,23 +14,23 @@ export class AnimationService {
 constructor(private http: HttpClient) { }
 
   getAllAnimation(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/animations`);
+    return this.http.get(`/api/animations`);
   }
 
   getAnimationById(codeanim: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/animations/${codeanim}`);
+    return this.http.get(`/api/animations/${codeanim}`);
   }
 
   createAnimation(data: Animation): Observable<any> {
-    return this.http.post(`${this.apiUrl}/animations`, data);
+    return this.http.post(`/api/animations`, data);
   }
 
   updateAnimation(codeanim: string, data: Animation): Observable<any> {
-    return this.http.put(`${this.apiUrl}/animations/${codeanim}`, data);
+    return this.http.put(`/api/animations/${codeanim}`, data);
   }
 
   deleteAnimation(codeanim: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/animations/${codeanim}`);
+    return this.http.delete(`/api/animations/${codeanim}`);
   }
 
 }

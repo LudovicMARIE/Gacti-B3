@@ -13,23 +13,23 @@ export class CompteService {
 constructor(private http: HttpClient) { }
 
 getComptes(): Observable<any> {
-  return this.http.get(`${this.apiUrl}/users`);
+  return this.http.get(`/api/users`);
 }
 
 getCompte(username: string): Observable<any> {
-  return this.http.get(`${this.apiUrl}/users/${username}`);
+  return this.http.get(`/api/users/${username}`);
 }
 
 updateCompte(username: string, data: User): Observable<any> {
-  return this.http.put(`${this.apiUrl}/users/${username}`, data);
+  return this.http.put(`/api/users/${username}`, data);
 }
 
 getComptesByType(type: string): Observable<any> {
-  return this.http.get(`${this.apiUrl}/users/type/${type}`);
+  return this.http.get(`/api/users/type/${type}`);
 }
 
 deleteCompte(username: string): Observable<any> {
-  return this.http.delete(`${this.apiUrl}/users/${username}`);
+  return this.http.delete(`/api/users/${username}`);
 }
 
 }

@@ -4,6 +4,7 @@ import com.gactiapi.com.model.Compte;
 import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,5 +17,6 @@ public interface CompteRepository extends JpaRepository<Compte, Long> {
   public List<Compte> findAllByTypeProfil(String typeProfil);
 
   Optional<Compte> findByadrMailCompte(String email);
+
 
 }
