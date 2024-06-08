@@ -10,6 +10,9 @@ import { CreateActivityComponent } from '../createActivity/createActivity.compon
 import { CreateAnimationComponent } from '../createAnimation/createAnimation.component';
 import { Subject } from 'rxjs';
 import { AnimationService } from '../_services/animation.service';
+import { ViewActivityDetailsComponent } from '../view-activity-details/view-activity-details.component';
+import { CompteService } from '../_services/compte.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -47,11 +50,23 @@ animationTypeList: AnimationType[] = [
 ];
 activityRegisteredList: Activity[] = [];
 animList: Animation[] = [];
+userList: User[] = [];
 constructor(private sessionService: SessionService,
   private router: Router,
   private activityService: ActivityService,
   private dialog: MatDialog,
-  private animationService: AnimationService) { }
+  private animationService: AnimationService,
+  private compteService: CompteService) {
+    this.compteService.getComptesByType('client').pipe(takeUntilDestroyed()).subscribe({
+      next: (response) => {
+        this.userList = [];
+        response.forEach((user: User) => {
+          this.userList.push(user);
+        });
+        console.log(this.userList);
+      }
+    });
+   }
 
   ngOnInit() {
     const destroyed = new Subject();
@@ -242,6 +257,24 @@ constructor(private sessionService: SessionService,
       console.log('The dialog was closed');
       this.initAnimList();
     });
+  }
+
+  openViewActDetailsComponent(activity: Activity): void {
+    console.log("activity inserted " + activity)
+    const dialogRef = this.dialog.open(ViewActivityDetailsComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
+      data: activity
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.initAnimList();
+    });
+  }
+
+  purgeActivity(idUser: string){
+
   }
 
 

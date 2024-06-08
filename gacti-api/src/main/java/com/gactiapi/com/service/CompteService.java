@@ -144,6 +144,11 @@ public class CompteService implements UserDetailsService {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  public ResponseEntity<List<Compte>> findAllWithAct(int idActivite){
+    Activite activite = activiteRepository.findByidActivite(idActivite).orElseThrow();
+    List<Compte> comptes = compteRepository.findAllByActivites(activite);
+    return new ResponseEntity<>(comptes, HttpStatus.OK);
+  }
 
 
 

@@ -14,6 +14,10 @@ form.createActivity{
     align-items: center;
 }
 
+.header{
+    font-weight: bold;
+}
+
 .form-text{
     display: flex;
     flex-direction: row;
@@ -21,10 +25,10 @@ form.createActivity{
     align-items: center;
     padding:5px 10px;
     gap:5px;
-    width:90%;
+    width:fit-content;
 }
 
-input{
+input, select{
   padding: 12px 20px;
   margin: 8px 0;
   margin-top:4px;

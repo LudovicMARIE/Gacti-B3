@@ -69,6 +69,7 @@
             <div class='buttonAct'>
             <button type='button' (click)="registerActivity(activity.idActivite)" *ngIf="User?.typeProfil == 'client' && activity.dateAnnulationAct == null" class='btn_inscription'>S'inscrire</button>
             <button type='button' (click)="deleteActivity(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Supprimer</button>
+            <button type='button' (click)="openViewActDetailsComponent(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Détails</button>
             </div>
             </div>
           </div>
@@ -100,11 +101,46 @@
             <div class='titreCard'>{{ anim.nomAnimation }}</div>
             <div class='buttonAnim'>
             <button class='btn_inscription'(click)="deleteAnimation(anim.idAnimation)" >Supprimer</button>
-            <button class='btn_inscription' id='modifAnim'>Modifier</button>
+            <!-- <button class='btn_inscription' id='modifAnim'>Modifier</button> -->
           </div>
           </div>
         </div>
         
+      </div>
+
+      <div class="userList" id="userList" *ngIf="page == 'userList'">
+        <div class="list">
+          <table class="comicGreen">
+            <thead>
+            <tr>
+            <th>ID</th>
+            <th>NOM</th>
+            <th>PRÉNOM</th>
+            <th>N° TÉLÉPHONE</th>
+            <th>ADRESSE MAIL</th>
+            <th>DATE DÉBUT SÉJOUR</th>
+            <th>DATE FIN SÉJOUR</th>
+            <th>DATE D'INSCRIPTION</th>
+            <th>DATE FERMETURE COMPTE</th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of userList">
+              <td>{{ user.idUser }}</td>
+              <td>{{ user.nomCompte }}</td>
+              <td>{{ user.prenomCompte }}</td>
+              <td>{{ user.telCompte }}</td>
+              <td>{{ user.adrMailCompte }}</td>
+              <td>{{ user.dateDebSejour | date: "dd/MM/yyyy" }}</td>
+              <td>{{ user.dateFinSejour | date: "dd/MM/yyyy" }}</td>
+              <td>{{ user.dateInscrip | date: "dd/MM/yyyy" }}</td>
+              <td>{{ user.dateFerme | date: "dd/MM/yyyy" }}</td>
+              <td><button (click)="purgeActivity(user.idUser)">Purger inscriptions</button></td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
       </div>
     </div>
   </div>

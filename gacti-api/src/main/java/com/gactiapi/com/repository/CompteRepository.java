@@ -1,5 +1,6 @@
 package com.gactiapi.com.repository;
 
+import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Compte;
 import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQuery;
@@ -18,5 +19,7 @@ public interface CompteRepository extends JpaRepository<Compte, Long> {
 
   Optional<Compte> findByadrMailCompte(String email);
 
+
+  List<Compte> findAllByActivites(Activite activity);
 
 }

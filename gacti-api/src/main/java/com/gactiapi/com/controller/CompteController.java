@@ -88,6 +88,9 @@ public class CompteController {
     return compteService.deleteCompte(idUser);
   }
 
-
+  @GetMapping("/activity/{idActivite}")
+  public ResponseEntity<List<Compte>> findAllByAct(@PathVariable int idActivite){
+    return compteService.findAllWithAct(idActivite);
+  }
 
 }

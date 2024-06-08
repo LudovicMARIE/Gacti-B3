@@ -1,0 +1,109 @@
+<div class="content">
+<div class="header">
+  Informations de l'activité
+</div>
+<div class="actDetails">
+  <div class="left">
+    <div class="idActivite">
+        Activité n°{{ currentActivity.idActivite }}
+    </div>
+    <div class="animation">
+      Animation : {{ currentActivity.animation.nomAnimation }}
+    </div>
+    <div class="prixActivite">
+      Prix : {{ currentActivity.prixAct }}€
+    </div>
+    <div class="dateActivite">
+      Date : {{ currentActivity.dateAct | date: " dd/MM/yyyy" }}
+    </div>
+    <div class="etatActivite">
+      <div *ngIf="currentActivity.dateAnnulationAct != null">
+        État de l'activité : {{ currentActivity.etatActivite }}
+        Annulée le {{ currentActivity.dateAnnulationAct | date: " dd/MM/yyyy" }}
+      </div>
+      <div *ngIf="currentActivity.dateAnnulationAct == null">
+        État de l'activité : {{ currentActivity.etatActivite }}
+      </div>
+    </div>
+    <div class="encadrantActivite">
+      Encadrant : {{ currentActivity.encadrant.nomCompte }} {{ currentActivity.encadrant.prenomCompte }}
+    </div>
+    <div class="nbInscritActivite">
+      Nombre d'inscrits : {{ userList.length }}/{{currentActivity.animation.nbPlaceAnimation}}
+    </div>
+  </div>
+  <div class="right">
+    <div class="dureeAct">
+      Durée : {{ currentActivity.animation.dureeAnimation }} minutes
+    </div>
+    <div class="limiteAge">
+      Limite d'âge : {{ currentActivity.animation.limiteAge }} ans minimum
+    </div>
+    <div class="typeActivite">
+      Type d'activité : {{ currentActivity.animation.typeAnimation }}
+    </div>
+    <div class="difficulteActivite">
+      Difficulté : {{ currentActivity.animation.difficulteAnimation }}
+    </div>
+    <div class="descriptionActivite">
+      Description : {{ currentActivity.animation.descriptionAnimation }}
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="list" *ngIf="userList.length == 0">
+  <table class="comicGreen">
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>NOM</th>
+    <th>PRÉNOM</th>
+    <th>N° TÉLÉPHONE</th>
+    <th>ADRESSE MAIL</th>
+    <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Pas d'inscription</td>
+      <td>Pas d'inscription</td>
+      <td>Pas d'inscription</td>
+      <td>Pas d'inscription</td>
+      <td>Pas d'inscription</td>
+      <td>Pas d'inscription</td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+
+
+  
+  <div class="list" *ngIf="userList.length != 0">
+    <table class="comicGreen">
+      <thead>
+      <tr>
+      <th>ID</th>
+      <th>NOM</th>
+      <th>PRÉNOM</th>
+      <th>N° TÉLÉPHONE</th>
+      <th>ADRESSE MAIL</th>
+      <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of userList">
+        <td>{{ user.idUser }}</td>
+        <td>{{ user.nomCompte }}</td>
+        <td>{{ user.prenomCompte }}</td>
+        <td>{{ user.telCompte }}</td>
+        <td>{{ user.adrMailCompte }}</td>
+        <td><button (click)="unRegisterActivity(user.idUser)">Désinscrire</button></td>
+      </tr>
+      </tbody>
+      </table>
+  </div>
+</div>

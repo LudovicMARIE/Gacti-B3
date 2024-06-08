@@ -30,7 +30,7 @@ public class Activite {
     this.animation = animation;
     this.prixAct = prixAct;
     this.dateAct = dateAct;
-    this.etatActivite = "PREVUE";
+    this.etatActivite = "Prévue";
     this.dateAnnulationAct = null;
     this.encadrant = encadrant;
   }

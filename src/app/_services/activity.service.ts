@@ -52,6 +52,10 @@ export class ActivityService {
     return this.http.get(`/api/users/${idUser}/activities`);
   }
 
+  getUserListByActivity(idActivite: number): Observable<any> {
+    return this.http.get(`/api/users/activity/${idActivite}`);
+  }
+
 
 
 

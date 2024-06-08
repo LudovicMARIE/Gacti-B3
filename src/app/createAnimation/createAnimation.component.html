@@ -5,36 +5,38 @@
   <div class="form">
     <form class='createActivity' [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-text">
-        <label for="idAnimation">idAnimation</label>
+        <label for="idAnimation">Id de l'animation :</label>
         <input id="idAnimation" formControlName="idAnimation">
       </div>
       <div class="form-text">
-        <label for="nomAnimation">nomAnimation</label>
+        <label for="nomAnimation">Nom de l'animation :</label>
         <input id="nomAnimation" formControlName="nomAnimation">
       </div>
-      <label for="animType">Type d'animation : </label>
-      <select #selectAnim formControlName="animType">
-        <option value="all" selected disabled hidden>Choisissez un type d'animation</option>
-        <option [value]="animType" *ngFor="let animType of animationTypeList">{{animType}}</option>
-      </select>
       <div class="form-text">
-        <label for="dureeAnimation">dureeAnimation</label>
+        <label for="animType">Type d'animation :</label>
+        <select #selectAnim formControlName="animType">
+          <option value="all" selected disabled hidden>Choisissez un type d'animation</option>
+          <option [value]="animType" *ngFor="let animType of animationTypeList">{{animType}}</option>
+        </select>
+      </div>
+      <div class="form-text">
+        <label for="dureeAnimation">Durée de l'animation (Heure) :</label>
         <input id="dureeAnimation" type="number" formControlName="dureeAnimation">
       </div>
       <div class="form-text">
-        <label for="limiteAge">limiteAge</label>
+        <label for="limiteAge">Limite d'âge :</label>
         <input id="limiteAge" type="number" formControlName="limiteAge">
       </div>
       <div class="form-text">
-        <label for="nbPlaceAnimation">nbPlaceAnimation</label>
+        <label for="nbPlaceAnimation">Nombre de places :</label>
         <input id="nbPlaceAnimation" type="number" formControlName="nbPlaceAnimation">
       </div>
       <div class="form-text">
-        <label for="descriptionAnimation">descriptionAnimation</label>
+        <label for="descriptionAnimation">Description :</label>
         <input id="descriptionAnimation" formControlName="descriptionAnimation">
       </div>
       <div class="form-text">
-        <label for="difficulteAnimation">difficulteAnimation</label>
+        <label for="difficulteAnimation">Difficulté :</label>
         <input id="difficulteAnimation" formControlName="difficulteAnimation">
       </div>
       <button type="submit" class="btn">Créer</button>

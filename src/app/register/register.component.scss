@@ -7,6 +7,11 @@
     background-color:rgb(254, 250, 224);
 }
 
+.header{
+    font-weight: bold;
+}
+
+
 form.createActivity{
     display:flex;
     flex-direction: column;
@@ -21,7 +26,7 @@ form.createActivity{
     align-items: center;
     padding:5px 10px;
     gap:5px;
-    width:90%;
+    width:fit-content;
 }
 
 input{

@@ -237,3 +237,48 @@ button.btn_inscription{
     height: auto;
     width: auto;
   }
+
+
+
+  .userList{
+    width:100vw;
+    padding:5px;
+  }
+
+  table.comicGreen {
+    border: 2px solid #283618;
+    background-color: #EEEEEE;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+  }
+  table.comicGreen td, table.comicGreen th {
+    border: 1px solid #283618;
+    padding: 3px 2px;
+  }
+  table.comicGreen tbody td {
+    font-size: 19px;
+    color: black;
+    text-align: left;
+  }
+  table.comicGreen tr:nth-child(even) {
+    background: #CEE0CC;
+  }
+  table.comicGreen thead {
+    background: #283618;
+    border-bottom: 1px solid #444444;
+  }
+  table.comicGreen thead th {
+    font-size: 15px;
+    font-weight: normal;
+    color: #FFFFFF;
+    text-align: left;
+    border-left: 2px solid #283618;
+  }
+  table.comicGreen thead th:first-child {
+    border-left: none;
+  }
+  
+  table.comicGreen tfoot td {
+    font-size: 21px;
+  }

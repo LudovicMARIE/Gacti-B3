@@ -68,6 +68,23 @@ img{
 div.image{
     text-align:center;
 }
+
+a{
+    color: black;
+    background-color: rgba(254, 250, 224, 0.4);
+    padding: 3px;
+    border-radius: 5px;
+    text-decoration: underline;
+    font-family: 'Roboto Slab', serif;
+    cursor: pointer;
+}
+
+.register{
+    width:100%;
+    text-align:center;
+    margin-top:3px;
+}
+
 input{
   width: 100%;
   padding: 12px 20px;

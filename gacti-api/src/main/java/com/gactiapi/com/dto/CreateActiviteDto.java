@@ -23,7 +23,7 @@ public class CreateActiviteDto {
     this.animation = animation;
     this.prixAct = prixAct;
     this.dateAct = dateAct;
-    this.etatActivite = "PREVUE";
+    this.etatActivite = "Prévue";
     this.dateAnnulationAct = dateAnnulationAct;
     this.id_encadrant = encadrant;
   }

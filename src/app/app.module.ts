@@ -13,9 +13,10 @@ import { CreateActivityComponent } from './createActivity/createActivity.compone
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { CreateAnimationComponent } from './createAnimation/createAnimation.component';
 import { RegisterComponent } from './register/register.component';
+import { ViewActivityDetailsComponent } from './view-activity-details/view-activity-details.component';
 
 @NgModule({
-  declarations: [						
+  declarations: [							
     AppComponent,
     NavbarComponent,
     LoginComponent,
@@ -23,7 +24,8 @@ import { RegisterComponent } from './register/register.component';
     SignupComponent,
       CreateActivityComponent,
       CreateAnimationComponent,
-      RegisterComponent
+      RegisterComponent,
+      ViewActivityDetailsComponent
    ],
   imports: [
     BrowserModule,
