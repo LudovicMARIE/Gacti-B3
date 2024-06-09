@@ -27,7 +27,7 @@ public class ActiviteService {
   private CompteRepository compteRepository;
 
   public ResponseEntity<List<Activite>> findAllActivites() {
-    return new ResponseEntity<>(activiteRepository.findAll(), HttpStatus.OK);
+    return new ResponseEntity<>(activiteRepository.findAllByDateActIsNotNullOrderByDateAct(), HttpStatus.OK);
   }
 
   public ResponseEntity<Activite> findActiviteById(int idActivite){
@@ -62,9 +62,25 @@ public class ActiviteService {
   }
 
   public ResponseEntity<HttpStatus> deleteActivite(int idActivite){
-      activiteRepository.deleteById(idActivite);
-      return new ResponseEntity<>(HttpStatus.OK);
+    this.clearRegistrationsForActivity(idActivite);
+
+    activiteRepository.deleteById(idActivite);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
+
+  public void clearRegistrationsForActivity(int idActivite) {
+    Activite activite = activiteRepository.findByidActivite(idActivite)
+      .orElseThrow(() -> new RuntimeException("Activity does not exist."));
+
+    List<Compte> comptes = compteRepository.findAll();
+    for (Compte compte : comptes) {
+      if (compte.getActivites().remove(activite)) {
+        compteRepository.save(compte);
+      }
+    }
+  }
+
+
 
   public ResponseEntity<List<Activite>> findAllByType(String typeAnim){
     List<Activite> actList = activiteRepository.findAllByAnimationType(typeAnim);

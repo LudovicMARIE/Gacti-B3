@@ -92,7 +92,7 @@ div.comboboxAct button{
 }
 
 div.activites{
-    width:100vw;
+    width:100%;
 }
 
 div.afficher_animations{
@@ -241,7 +241,7 @@ button.btn_inscription{
 
 
   .userList{
-    width:100vw;
+    width:100%;
     padding:5px;
   }
 
@@ -257,7 +257,7 @@ button.btn_inscription{
     padding: 3px 2px;
   }
   table.comicGreen tbody td {
-    font-size: 19px;
+    font-size: 15px;
     color: black;
     text-align: left;
   }
@@ -281,4 +281,11 @@ button.btn_inscription{
   
   table.comicGreen tfoot td {
     font-size: 21px;
+  }
+
+
+  @media screen and (max-width: 1319px) {
+    .hidden {
+      display: none;
+    }
   }

@@ -13,6 +13,7 @@ import { AnimationService } from '../_services/animation.service';
 import { ViewActivityDetailsComponent } from '../view-activity-details/view-activity-details.component';
 import { CompteService } from '../_services/compte.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EtatActivite } from '../_enums/EtatActivite.enum';
 
 @Component({
   selector: 'app-home',
@@ -270,11 +271,25 @@ constructor(private sessionService: SessionService,
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.initAnimList();
+      this.initActivityList();
     });
   }
 
   purgeActivity(idUser: string){
+    this.compteService.purgeActivity(idUser).subscribe({
 
+    });
+  }
+
+  cancelActivity(activity: Activity){
+    activity.dateAnnulationAct = new Date();
+    activity.etatActivite = EtatActivite.CANCELED;
+    this.activityService.cancelActivity(activity).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.initActivityList();
+      }
+    });
   }
 
 

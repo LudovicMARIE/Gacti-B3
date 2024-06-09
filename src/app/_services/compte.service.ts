@@ -32,4 +32,8 @@ deleteCompte(username: string): Observable<any> {
   return this.http.delete(`/api/users/${username}`);
 }
 
+purgeActivity(username: string): Observable<any> {
+  return this.http.delete(`/api/users/${username}/activities`);
+}
+
 }

@@ -19,6 +19,8 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -148,6 +150,25 @@ public class CompteService implements UserDetailsService {
     Activite activite = activiteRepository.findByidActivite(idActivite).orElseThrow();
     List<Compte> comptes = compteRepository.findAllByActivites(activite);
     return new ResponseEntity<>(comptes, HttpStatus.OK);
+  }
+
+  public ResponseEntity<Compte> purgeActivitiesUser(String idUser){
+    Compte userFound = compteRepository.findByidUser(idUser).orElseThrow(() -> new RuntimeException("User not found."));
+    List<Activite> activites = new ArrayList<Activite>();
+    Compte userPurged = new Compte(
+      userFound.getIdUser(),
+      userFound.getPassword(),
+      userFound.getNomCompte(),
+      userFound.getPrenomCompte(),
+      userFound.getTypeProfil(),
+      userFound.getDateDebSejour(),
+      userFound.getDateFinSejour(),
+      userFound.getAdrMailCompte(),
+      userFound.getTelCompte(),
+      activites
+    );
+    compteRepository.save(userPurged);
+    return new ResponseEntity<>(userPurged, HttpStatus.OK);
   }
 
 

@@ -16,6 +16,10 @@ import java.util.Optional;
 public interface ActiviteRepository extends JpaRepository<Activite, Integer> {
   Optional<Activite> findByidActivite(int idActivite);
 
+  List<Activite> findByAnimation(Animation Animation);
+
+  List<Activite> findAllByDateActIsNotNullOrderByDateAct();
+
   @Query("SELECT a FROM Activite a JOIN a.animation anim WHERE anim.typeAnimation = ?1")
   List<Activite> findAllByAnimationType(String typeAnim);
 

@@ -3,6 +3,7 @@ import { AnimationType } from '../_enums/AnimationType.enum';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Animation } from '../_interfaces/activity';
 import { AnimationService } from '../_services/animation.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-createAnimation',
@@ -22,7 +23,8 @@ export class CreateAnimationComponent implements OnInit {
     AnimationType.FAMILLE,
   ];
 
-  constructor(private animationService: AnimationService) { 
+  constructor(private animationService: AnimationService,
+    public dialogRef: MatDialogRef<CreateAnimationComponent>) { 
     this.form = new FormGroup({
       idAnimation: new FormControl(''),
       nomAnimation: new FormControl(''),
@@ -57,6 +59,7 @@ export class CreateAnimationComponent implements OnInit {
     this.animationService.createAnimation(animation).subscribe({
       next: (response) => {
         console.log(response);
+        this.dialogRef.close();
       }
     });
   }

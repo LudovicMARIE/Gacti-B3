@@ -69,6 +69,7 @@
             <div class='buttonAct'>
             <button type='button' (click)="registerActivity(activity.idActivite)" *ngIf="User?.typeProfil == 'client' && activity.dateAnnulationAct == null" class='btn_inscription'>S'inscrire</button>
             <button type='button' (click)="deleteActivity(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Supprimer</button>
+            <button type='button' (click)="cancelActivity(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Annuler</button>
             <button type='button' (click)="openViewActDetailsComponent(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Détails</button>
             </div>
             </div>
@@ -118,11 +119,12 @@
             <th>PRÉNOM</th>
             <th>N° TÉLÉPHONE</th>
             <th>ADRESSE MAIL</th>
-            <th>DATE DÉBUT SÉJOUR</th>
-            <th>DATE FIN SÉJOUR</th>
-            <th>DATE D'INSCRIPTION</th>
-            <th>DATE FERMETURE COMPTE</th>
-            <th></th>
+            <th class="hidden">DATE DÉBUT SÉJOUR</th>
+            <th class="hidden">DATE FIN SÉJOUR</th>
+            <th class="hidden">DATE D'INSCRIPTION</th>
+            <th class="hidden">DATE FERMETURE COMPTE</th>
+            <th>NOMBRE D'INSCRIPTIONS</th>
+            <th *ngIf="User?.typeProfil == 'admin'"></th>
             </tr>
             </thead>
             <tbody>
@@ -132,11 +134,12 @@
               <td>{{ user.prenomCompte }}</td>
               <td>{{ user.telCompte }}</td>
               <td>{{ user.adrMailCompte }}</td>
-              <td>{{ user.dateDebSejour | date: "dd/MM/yyyy" }}</td>
-              <td>{{ user.dateFinSejour | date: "dd/MM/yyyy" }}</td>
-              <td>{{ user.dateInscrip | date: "dd/MM/yyyy" }}</td>
-              <td>{{ user.dateFerme | date: "dd/MM/yyyy" }}</td>
-              <td><button (click)="purgeActivity(user.idUser)">Purger inscriptions</button></td>
+              <td class="hidden">{{ user.dateDebSejour | date: "dd/MM/yyyy" }}</td>
+              <td class="hidden">{{ user.dateFinSejour | date: "dd/MM/yyyy" }}</td>
+              <td class="hidden">{{ user.dateInscrip | date: "dd/MM/yyyy" }}</td>
+              <td class="hidden">{{ user.dateFerme | date: "dd/MM/yyyy" }}</td>
+              <td>{{ user.activites.length }}</td>
+              <td *ngIf="User?.typeProfil == 'admin'"><button (click)="purgeActivity(user.idUser)">Purger inscriptions</button></td>
             </tr>
             </tbody>
             </table>

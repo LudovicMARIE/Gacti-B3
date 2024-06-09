@@ -56,6 +56,10 @@ export class ActivityService {
     return this.http.get(`/api/users/activity/${idActivite}`);
   }
 
+  cancelActivity(activite: Activity): Observable<any> {
+    return this.http.put(`/api/activities/${activite.idActivite}`, activite);
+  }
+
 
 
 

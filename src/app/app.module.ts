@@ -14,6 +14,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { CreateAnimationComponent } from './createAnimation/createAnimation.component';
 import { RegisterComponent } from './register/register.component';
 import { ViewActivityDetailsComponent } from './view-activity-details/view-activity-details.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [							
@@ -33,6 +34,7 @@ import { ViewActivityDetailsComponent } from './view-activity-details/view-activ
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSidenavModule,
   ],
   providers: [
     provideClientHydration(),

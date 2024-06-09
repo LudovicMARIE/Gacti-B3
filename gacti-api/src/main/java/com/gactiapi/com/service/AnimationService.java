@@ -2,7 +2,9 @@ package com.gactiapi.com.service;
 
 import com.gactiapi.com.dto.CreateAnimationDto;
 import com.gactiapi.com.dto.UpdateAnimationDto;
+import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Animation;
+import com.gactiapi.com.repository.ActiviteRepository;
 import com.gactiapi.com.repository.AnimationRepository;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,12 @@ import java.util.List;
 public class AnimationService {
   @Autowired
   private AnimationRepository animationRepository;
+
+  @Autowired
+  private ActiviteRepository activiteRepository;
+
+  @Autowired
+  private ActiviteService activiteService;
 
   public ResponseEntity<List<Animation>> findAllAnimations(){
     return new ResponseEntity<>(animationRepository.findAll(), HttpStatus.OK);
@@ -63,9 +71,15 @@ public class AnimationService {
   }
 
   public ResponseEntity<HttpStatus> deleteAnimation(String idAnimation){
+    Animation animation = animationRepository.findByidAnimation(idAnimation).orElseThrow(() -> new RuntimeException("Animation does not exist."));
+    List<Activite> activities = activiteRepository.findByAnimation(animation);
+    for (Activite activite : activities){
+      activiteService.deleteActivite(activite.getIdActivite());
+    }
     animationRepository.deleteById(idAnimation);
     return new ResponseEntity<>(HttpStatus.OK);
   }
+
 
 
 }

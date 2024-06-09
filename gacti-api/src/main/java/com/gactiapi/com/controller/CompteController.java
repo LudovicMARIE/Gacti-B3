@@ -93,4 +93,9 @@ public class CompteController {
     return compteService.findAllWithAct(idActivite);
   }
 
+  @DeleteMapping("/{idUser}/activities")
+  public ResponseEntity<Compte> purgeRegistrationsUser(@PathVariable String idUser){
+    return compteService.purgeActivitiesUser(idUser);
+  }
+
 }
