@@ -7,7 +7,7 @@
     <button (click)="changePage('activityList')">Activités disponibles</button>
     <button (click)="changePage('activitiesRegistered')" *ngIf="currentUser?.typeProfil == 'client'">Mes activités</button>
     <button (click)="changePage('animationList')">Animations</button>
-    <button (click)="changePage('userList')">Liste des utilisateurs</button>
+    <button (click)="changePage('userList')"*ngIf="currentUser?.typeProfil != 'client'">Liste des utilisateurs</button>
   </div>
   <div class="btnDisconnect">
     <button (click)="disconnectUser()">Déconnexion</button>
