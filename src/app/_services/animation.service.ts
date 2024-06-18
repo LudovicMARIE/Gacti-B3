@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Animation } from '../_interfaces/activity';
+import { HttpClientService } from './http-client.service';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import { Animation } from '../_interfaces/activity';
 export class AnimationService {
   private apiUrl = environment.apiUrl;
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClientService) { }
 
   getAllAnimation(): Observable<any> {
     return this.http.get(`/api/animations`);

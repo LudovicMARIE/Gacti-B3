@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Activity, ActivityInserted } from '../_interfaces/activity';
+import { HttpClientService } from './http-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { Activity, ActivityInserted } from '../_interfaces/activity';
 export class ActivityService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClientService) { }
 
   getCompteActivite(username: string): Observable<any> {
     return this.http.get(`/api/users/${username}/activities`);

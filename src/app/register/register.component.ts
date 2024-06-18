@@ -19,22 +19,18 @@ export class RegisterComponent implements OnInit {
       mdp: new FormControl('', Validators.required),
       nomCompte: new FormControl('', Validators.required),
       prenomCompte: new FormControl('', Validators.required),
-      dateInscrip: new FormControl('', Validators.required),
-      dateFerme: new FormControl('', Validators.required),
-      typeProfil: new FormControl('', Validators.required),
       dateDebSejour: new FormControl('', Validators.required),
       dateFinSejour: new FormControl('', Validators.required),
       adrMailCompte: new FormControl('', Validators.required),
       telCompte: new FormControl('', Validators.required),
-      activites: new FormControl('', Validators.required)
 
     });
   }
 
   onSubmit(){
-    console.log("Submit");
     if(this.form.invalid){
       console.log("Invalid form");
+      console.log(this.form);
       return;
     }else{
 

@@ -6,12 +6,21 @@ import com.gactiapi.com.dto.UpdateCompteDto;
 import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Compte;
 import com.gactiapi.com.service.CompteService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.catalina.User;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -19,6 +28,8 @@ import java.util.List;
 public class CompteController {
   @Autowired
   private CompteService compteService;
+
+  private SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
   @GetMapping("")
   public ResponseEntity<List<Compte>> findAllComptes() {
@@ -39,9 +50,15 @@ public class CompteController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<Compte> login(@RequestBody LoginDto loginDto) {
+  public ResponseEntity<Compte> login(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
     try {
-      return compteService.login(loginDto);
+      Compte user = compteService.login(loginDto).getBody();
+
+      SecurityContext context = SecurityContextHolder.getContext();
+      context.setAuthentication(new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()));
+      securityContextRepository.saveContext(context, request, response);
+
+      return new ResponseEntity<>(user, HttpStatus.OK);
     } catch (RuntimeException e) {
       if (e.getMessage().equals("Password mismatch.")) {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

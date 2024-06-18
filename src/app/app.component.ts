@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClientService } from './_services/http-client.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'GACTI-B3';
+
+  constructor(private http: HttpClientService){}
+
+  ngOnInit(){
+    // this.http.getCsrf();
+  }
 }
