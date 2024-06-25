@@ -1,6 +1,7 @@
 package com.gactiapi.com.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Constraint;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

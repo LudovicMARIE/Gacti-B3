@@ -2,6 +2,7 @@ package com.gactiapi.com.controller;
 
 import com.gactiapi.com.dto.CreateCompteDto;
 import com.gactiapi.com.dto.LoginDto;
+import com.gactiapi.com.dto.ReturnCompteDto;
 import com.gactiapi.com.dto.UpdateCompteDto;
 import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Compte;
@@ -50,9 +51,10 @@ public class CompteController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<Compte> login(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
+  public ResponseEntity<ReturnCompteDto> login(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
     try {
-      Compte user = compteService.login(loginDto).getBody();
+      Thread.sleep(1000);
+      ReturnCompteDto user = compteService.login(loginDto).getBody();
 
       SecurityContext context = SecurityContextHolder.getContext();
       context.setAuthentication(new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()));
@@ -67,6 +69,8 @@ public class CompteController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
     }
   }
 

@@ -69,7 +69,7 @@
             <div class='buttonAct'>
             <button type='button' (click)="registerActivity(activity.idActivite)" *ngIf="User?.typeProfil == 'client' && activity.dateAnnulationAct == null" class='btn_inscription'>S'inscrire</button>
             <button type='button' (click)="deleteActivity(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Supprimer</button>
-            <button type='button' (click)="cancelActivity(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Annuler</button>
+            <button type='button' (click)="cancelActivity(activity)" *ngIf="User?.typeProfil == 'admin' && activity.dateAnnulationAct == null" class='btn_inscription'>Annuler</button>
             <button type='button' (click)="openViewActDetailsComponent(activity)" *ngIf="User?.typeProfil == 'admin'" class='btn_inscription'>Détails</button>
             </div>
             </div>
@@ -101,7 +101,7 @@
           <div class='cardAnim' *ngFor="let anim of animList">
             <div class='titreCard'>{{ anim.nomAnimation }}</div>
             <div class='buttonAnim'>
-            <button class='btn_inscription'(click)="deleteAnimation(anim.idAnimation)" >Supprimer</button>
+            <button class='btn_inscription'(click)="deleteAnimation(anim.idAnimation)" *ngIf="User?.typeProfil == 'admin'" >Supprimer</button>
             <!-- <button class='btn_inscription' id='modifAnim'>Modifier</button> -->
           </div>
           </div>

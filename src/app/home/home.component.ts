@@ -14,6 +14,9 @@ import { ViewActivityDetailsComponent } from '../view-activity-details/view-acti
 import { CompteService } from '../_services/compte.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EtatActivite } from '../_enums/EtatActivite.enum';
+import { ValidationComponent } from '../validation/validation.component';
+import { ErrorComponent } from '../error/error.component';
+import { SuccessComponent } from '../success/success.component';
 
 @Component({
   selector: 'app-home',
@@ -124,31 +127,105 @@ constructor(private sessionService: SessionService,
 
 
   deleteActivity(activity: Activity){
-    this.activityService.deleteActivite(activity.idActivite).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.initActivityList();
-      }
+    const dialogRef = this.dialog.open(ValidationComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
     });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'yes'){
+        try{
+          this.activityService.deleteActivite(activity.idActivite).subscribe({
+            next: (response) => {
+              console.log(response);
+              this.dialog.open(SuccessComponent, {
+                width: 'fit-content',
+                panelClass: 'custom-dialog-container',
+              });
+              this.initActivityList();
+            }
+          });
+        }catch (err){
+          console.error('Error occurred:', err);
+            console.log('test')
+            this.dialog.open(ErrorComponent, {
+              width: 'fit-content',
+              panelClass: 'custom-dialog-container',
+            });
+        }
+        // this.activityService.deleteActivite(activity.idActivite).subscribe({
+        //   next: (response) => {
+        //     console.log(response);
+        //     this.initActivityList();
+        //   },
+        //   error: (err) => {
+        //     console.error('Error occurred:', err);
+        //     console.log('test')
+        //     this.dialog.open(ErrorComponent, {
+        //       width: 'fit-content',
+        //       panelClass: 'custom-dialog-container',
+        //     });
+        //   }
+        // });
+      }else{
+        console.log('The dialog was closed');
+      }
+      
+    });
+    
   }
 
 
   registerActivity(idActivite: number){
-    this.activityService.registerActivity(this.User.idUser, idActivite).subscribe({
-      next: (response) => {
-        //console.log(response);
-        this.initRegistrations();
+    
+
+    const dialogRef = this.dialog.open(ValidationComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'yes'){
+        this.activityService.registerActivity(this.User.idUser, idActivite).subscribe({
+          next: (response) => {
+            this.dialog.open(SuccessComponent, {
+              width: 'fit-content',
+              panelClass: 'custom-dialog-container',
+            });
+            //console.log(response);
+            this.initRegistrations();
+          }
+        });
+      }else{
+        console.log('The dialog was closed');
       }
+      
     });
     
   }
 
   unregisterActivity(idActivite: number){
-    this.activityService.unregisterActivity(this.User.idUser, idActivite).subscribe({
-      next: (response) => {
-        //console.log(response);
-        this.initRegistrations();
+    const dialogRef = this.dialog.open(ValidationComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'yes'){
+        this.activityService.unregisterActivity(this.User.idUser, idActivite).subscribe({
+          next: (response) => {
+            this.dialog.open(SuccessComponent, {
+              width: 'fit-content',
+              panelClass: 'custom-dialog-container',
+            });
+            //console.log(response);
+            this.initRegistrations();
+          }
+        });
+      }else{
+        console.log('The dialog was closed');
       }
+      
     });
     
   }
@@ -227,11 +304,27 @@ constructor(private sessionService: SessionService,
   }
 
   deleteAnimation(idAnim: string){
-    this.animationService.deleteAnimation(idAnim).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.initAnimList();
+    const dialogRef = this.dialog.open(ValidationComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'yes'){
+        this.animationService.deleteAnimation(idAnim).subscribe({
+          next: (response) => {
+            this.dialog.open(SuccessComponent, {
+              width: 'fit-content',
+              panelClass: 'custom-dialog-container',
+            });
+            console.log(response);
+            this.initAnimList();
+          }
+        });
+      }else{
+        console.log('The dialog was closed');
       }
+      
     });
   }
 
@@ -276,19 +369,67 @@ constructor(private sessionService: SessionService,
   }
 
   purgeActivity(idUser: string){
-    this.compteService.purgeActivity(idUser).subscribe({
-
+    const dialogRef = this.dialog.open(ValidationComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'yes'){
+        this.compteService.purgeActivity(idUser).subscribe({
+          next: (response) => {
+            this.compteService.getComptesByType('client').subscribe({
+              next: (response) => {
+                this.userList = [];
+                response.forEach((user: User) => {
+                  this.userList.push(user);
+                });
+                console.log(this.userList);
+              }
+            });
+            this.dialog.open(SuccessComponent, {
+              width: 'fit-content',
+              panelClass: 'custom-dialog-container',
+            });
+          }
+        });
+      }else{
+        console.log('The dialog was closed');
+      }
+      
     });
   }
 
   cancelActivity(activity: Activity){
-    activity.dateAnnulationAct = new Date();
-    activity.etatActivite = EtatActivite.CANCELED;
-    this.activityService.cancelActivity(activity).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.initActivityList();
+    const dialogRef = this.dialog.open(ValidationComponent, {
+      width: 'fit-content',
+      panelClass: 'custom-dialog-container',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'yes'){
+        activity.dateAnnulationAct = new Date();
+        activity.etatActivite = EtatActivite.CANCELED;
+        this.activityService.cancelActivity(activity).subscribe({
+          next: (response) => {
+            this.dialog.open(SuccessComponent, {
+              width: 'fit-content',
+              panelClass: 'custom-dialog-container',
+            });
+            this.initActivityList();
+      },
+      error: (err) => {
+        console.error('Error occurred:', err);
+        this.dialog.open(ErrorComponent, {
+          width: 'fit-content',
+          panelClass: 'custom-dialog-container',
+        });
       }
+    });
+      }else{
+        console.log('The dialog was closed');
+      }
+      
     });
   }
 

@@ -11,6 +11,14 @@
     font-weight: bold;
 }
 
+a{
+    text-decoration: underline;
+    color:blue;
+}
+a:hover{
+    cursor: pointer;
+}
+
 
 form.createActivity{
     display:flex;

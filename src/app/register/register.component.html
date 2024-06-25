@@ -13,6 +13,10 @@
         <input id="mdp" type="password" formControlName="mdp">
       </div>
       <div class="form-text">
+        <label for="mdpConfirm">Confirmer mot de passe :</label>
+        <input id="mdpConfirm" type="password" formControlName="mdpConfirm">
+      </div>
+      <div class="form-text">
         <label for="nomCompte">Nom de famille :</label>
         <input id="nomCompte" type="text" formControlName="nomCompte">
       </div>
@@ -34,7 +38,12 @@
       </div>
       <div class="form-text">
         <label for="telCompte">Numéro de téléphone :</label>
-        <input id="telCompte" type="number" formControlName="telCompte">
+        <input id="telCompte" type="text" formControlName="telCompte">
+      </div>
+      <div class="form-text">
+        <input type="checkbox" formControlName="termsAccepted">
+          En vous inscrivant, vous acceptez les 
+          <a (click)="openConditions()">conditions d'utilisation</a>
       </div>
       <div class="buttonDiv">
         <button type="submit">S'inscrire</button>

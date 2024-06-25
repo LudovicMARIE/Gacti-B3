@@ -2,6 +2,7 @@ package com.gactiapi.com.service;
 
 import com.gactiapi.com.dto.CreateCompteDto;
 import com.gactiapi.com.dto.LoginDto;
+import com.gactiapi.com.dto.ReturnCompteDto;
 import com.gactiapi.com.dto.UpdateCompteDto;
 import com.gactiapi.com.model.Activite;
 import com.gactiapi.com.model.Compte;
@@ -35,7 +36,7 @@ public class CompteService implements UserDetailsService {
     return new ResponseEntity<>(compteRepository.findAll(), HttpStatus.OK);
   }
 
-  public ResponseEntity<Compte> login(LoginDto loginDto) {
+  public ResponseEntity<ReturnCompteDto> login(LoginDto loginDto) {
     Compte user = compteRepository.findByadrMailCompte(loginDto.getMail()).orElse(null);
     if(user == null) {
       throw new RuntimeException("User does not exist.");
@@ -44,7 +45,17 @@ public class CompteService implements UserDetailsService {
     if(!user.getPassword().equals(hashedPassword)){
       throw new RuntimeException("Password mismatch.");
     }
-    return new ResponseEntity<>(user, HttpStatus.OK);
+    ReturnCompteDto returnedUser = new ReturnCompteDto();
+    returnedUser.setIdUser(user.getIdUser());
+    returnedUser.setNomCompte(user.getNomCompte());
+    returnedUser.setPrenomCompte(user.getPrenomCompte());
+    returnedUser.setTypeProfil(user.getTypeProfil());
+    returnedUser.setDateDebSejour(user.getDateDebSejour());
+    returnedUser.setDateFinSejour(user.getDateFinSejour());
+    returnedUser.setAdrMailCompte(user.getAdrMailCompte());
+    returnedUser.setTelCompte(user.getTelCompte());
+    returnedUser.setActiviteList(user.getActivites());
+    return new ResponseEntity<>(returnedUser, HttpStatus.OK);
 
   }
 
@@ -75,7 +86,8 @@ public class CompteService implements UserDetailsService {
                   createCompteDto.getTelCompte(),
                   createCompteDto.getActiviteList()
           );
-      }else{
+      }
+      else{
           newCompte = new Compte(
                   createCompteDto.getIdUser(),
                   hashedMdp,
